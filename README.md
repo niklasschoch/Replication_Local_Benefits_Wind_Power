@@ -6,9 +6,13 @@
 
 ### Authors
 
-1. Claire Gavard — ZEW Manheim *Corresponding author.*
+1. Claire Gavard — ZEW Mannheim *Corresponding author.*
 2. Jonas Göbel — Faculty of Arts, University of Groningen
 3. Niklas Schoch — Department of Economics, Sciences Po Paris
+
+### Abstract
+
+An argument commonly used to support renewable energy is that it may contribute to job creation. On the other hand, these technologies often face local opposition. In the case of Denmark, the country with the longest wind power experience, we examine whether the installation of new turbines had local economic benefits. Using the Danish master data register of wind turbines and detailed data on the municipal budget, personal income and sectoral employment from Statistics Denmark, we build a panel covering 250 municipalities. We use a quasi-experimental set-up and exploit time and regional variations at the municipal level. We find that the deployment of wind power contributed to the increase in personal income for entrepreneurs and reduced dependence on social benefits. As municipalities received payments from wind investors ahead of the construction, the new wind revenues were also followed by increases in local public spending. We find only very minor effects on employment in some sectors, and the aggregate local employment does not change significantly. Heterogeneity analyses indicate that the increases in local entrepreneurial income are largely driven by small installations, whilst increases in municipal budget and reductions in the dependence on social benefits are induced by larger installations.
 
 > This repository is the published replication package, downloadable from the journal's supplementary materials. The same package is also distributed by the journal alongside the article under "Supplementary Information".
 
@@ -46,21 +50,19 @@ For questions about this repo, please reach out to:
 ## Overview
 
 ```
-Wind_Data_Package/
-├── Read_Me.pdf                                    # Original replication README from the journal
+Data-Package-Local-Economic-Impacts-of-Wind-Power-Deployment/
 ├── FinalPanel.dta                                 # Final balanced municipality-year panel (251 municipalities)
 ├── GPS_OLS_Estimations.do                         # Main estimations (GPS + OLS)
 ├── MasterScript.do                                # [ADDED] Orchestrates the entire replication
 ├── README.md                                      # [ADDED] This file
 │
 ├── Data/
-│   └── Data/
-│       ├── Code_Data.do                           # Code to build FinalPanel.dta from raw sources
-│       ├── Data Sources and Panel.xls             # All originally downloaded + GIS-modified data
-│       ├── FinalPanel.dta                         # Copy of the final panel
-│       ├── Overview Data Wind Power.xlsx          # Overview / documentation of the wind data
-│       ├── TEMP/                                  # Temporary files produced by Code_Data.do
-│       └── log/                                   # Stata log files
+│   ├── Code_Data.do                               # Code to build FinalPanel.dta from raw sources
+│   ├── Data Sources and Panel.xls                 # All originally downloaded + GIS-modified data
+│   ├── FinalPanel.dta                             # Copy of the final panel
+│   ├── Overview Data Wind Power.xlsx              # Overview / documentation of the wind data
+│   ├── TEMP/                                      # Temporary files produced by Code_Data.do
+│   └── log/                                       # Stata log files
 │
 ├── Summary_Stats/
 │   ├── Summary_Stats.do                           # Descriptive statistics
@@ -127,7 +129,7 @@ net install collin
 
 All data used in the analysis are **publicly available without restrictions**. The package contains:
 
-1. **Original sources** (`Data/Data/Data Sources and Panel.xls`) — every raw download is kept on a dedicated sheet of this workbook, plus the GIS-modified wind-turbine and wind-density data. Original sources are:
+1. **Original sources** (`Data/Data Sources and Panel.xls`) — every raw download is kept on a dedicated sheet of this workbook, plus the GIS-modified wind-turbine and wind-density data. Original sources are:
    - **DIGDAG** (Digital Atlas of the Danish Historical-Administrative Geography) — municipal GIS borders
    - **Statistics Denmark** — income, municipal budget, sectoral employment, population, unemployment, agricultural land surface
    - **Master Data Register of Wind Turbines** (Danish Energy Agency) — turbine technical data, X-Y coordinates, commission / decommission dates (1977–2021)
@@ -157,7 +159,7 @@ If you prefer to run scripts individually, the order below mirrors `MasterScript
 #### Step 0 (optional): Rebuild the panel
 
 ```stata
-cd "Data/Data"
+cd "Data"
 do "Code_Data.do"
 ```
 

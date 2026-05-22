@@ -43,7 +43,7 @@ local skip_robustness        = 0
 *-------------------------------------------------------------------------------
 if `skip_build_panel' == 0 {
     display as result _newline "=== Step 0: Building FinalPanel.dta from raw data ==="
-    cd "$ROOT/Data/Data"
+    cd "$ROOT/Data"
     do "Code_Data.do"
     cd "$ROOT"
 }
