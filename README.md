@@ -1,19 +1,16 @@
 # Local Economic Impacts of Wind Power Deployment in Denmark — Replication Package
 
 **Authors:** Claire Gavard, Jonas Göbel & Niklas Schoch
-**Title:** Local Economic Impacts of Wind Power Deployment in Denmark
-**Journal:** *Environmental and Resource Economics*, Vol. 88, pp. 1679–1717 (2025)
-**Published:** 29 April 2025 (Open Access)
-**DOI:** [10.1007/s10640-025-00982-2](https://doi.org/10.1007/s10640-025-00982-2)
-**Article:** <https://link.springer.com/article/10.1007/s10640-025-00982-2>
+**Title:** Local Economic Impacts of Wind Power Deployment in Denmark, *Environmental and Resource Economics*, Vol. 88, pp. 1679–1717 (2025)
+**Original Article:** <https://link.springer.com/article/10.1007/s10640-025-00982-2>
 
-### Author affiliations
+### Authors
 
-1. Claire Gavard — ZEW – Leibniz Centre for European Economic Research, L7 1, 68161 Mannheim, Germany ([ORCID 0000-0003-3089-4802](https://orcid.org/0000-0003-3089-4802)). *Corresponding author.*
-2. Jonas Göbel — Faculty of Arts, University of Groningen, Oude Kijk in 't Jatstraat 26, 9712 Groningen, The Netherlands.
-3. Niklas Schoch — Department of Economics, Sciences Po Paris, 27 Rue Saint-Guillaume, 75007 Paris, France.
+1. Claire Gavard — ZEW Manheim *Corresponding author.*
+2. Jonas Göbel — Faculty of Arts, University of Groningen
+3. Niklas Schoch — Department of Economics, Sciences Po Paris
 
-> This repository is the published replication package, downloadable from the journal's supplementary materials. The same package is also distributed by the journal alongside the article on the Springer website (<https://link.springer.com/article/10.1007/s10640-025-00982-2>, under "Supplementary Information"). The folder structure, data files, and Stata `.do` files have **not** been modified here. Only two files have been added on top: this `README.md`, and a top-level `MasterScript.do` that runs all steps in sequence.
+> This repository is the published replication package, downloadable from the journal's supplementary materials. The same package is also distributed by the journal alongside the article under "Supplementary Information".
 
 ## Citation
 
@@ -42,13 +39,9 @@ BibTeX:
 
 ## Contact
 
-For questions about this **GitHub mirror** of the replication package (e.g. issues with `MasterScript.do` or the README), please reach out to:
+For questions about this repo, please reach out to:
 
 - **Niklas Schoch** — <niklas.schoch@sciencespo.fr>
-
-For questions about the **underlying paper or methodology**, please contact the corresponding author:
-
-- **Claire Gavard** — ZEW Mannheim ([ORCID](https://orcid.org/0000-0003-3089-4802))
 
 ## Overview
 
@@ -147,36 +140,15 @@ All data used in the analysis are **publicly available without restrictions**. T
 
 3. **Panel with capacity** (`Heterogeneity/FinalPanel_with_Capacity.dta`) — same panel augmented with installed wind-turbine capacity, used for the heterogeneity analysis.
 
-## Panel construction
-
-The panel is built in three broad stages (see `Read_Me.pdf` Section 3 for the full description, and `Data/Data/Code_Data.do` for the code):
-
-1. **Reshape each source into municipality-year format**, manually harmonise municipality names (Danish characters `ø å æ` are inconsistently handled across QGIS, Stata and Excel; spellings differ between Statistics Denmark and DIGDAG), and drop the island municipality of Christiansø (insufficient data).
-
-2. **Three administrative edits**:
-   - Merge the **21 urbanised small municipalities** of greater Copenhagen.
-   - Merge **Marstal, Ærøskøbing and Ærø** (same municipality, name changed in 2005).
-   - For **Bornholm** (Aakirkeby, Rønne, Nexø, Hasle, Allinge-Gudhjem) drop the five sub-municipalities and use the **county-level** data instead, since post-2002 sub-municipal data are incomplete.
-
-3. **Merge all sources at the municipal level**, convert DKK → EUR, generate per-capita variables, delete temporary `TEMP_*` files, label variables. The result is a balanced panel of **251 municipalities**.
-
 ## Replication Instructions
 
-### Quick start: Master Script
-
-For one-click replication, use the added master script:
+### Master Script
+For one-click replication, use master script:
 
 ```stata
 * Open MasterScript.do in Stata and click "Do", or:
 do MasterScript.do
 ```
-
-The master script:
-
-- uses **relative paths** (no edits to paths required),
-- has a **skip flag for every step** at the top — set a flag to `1` to skip,
-- by default **does not rebuild the panel** (it uses the shipped `FinalPanel.dta`); set `skip_build_panel = 0` to rebuild from raw sources,
-- runs the steps in the order: build panel (optional) → summary stats → main estimations → dose responses → heterogeneity → placebos → robustness.
 
 ### Manual step-by-step instructions
 
@@ -237,22 +209,6 @@ do "GPS_OLS_Estimations_Robustness_Copenhagen.do"
 do "GPS_OLS_Robustness_Lags.do"
 ```
 
-## Key variables
-
-| Variable | Description |
-|---|---|
-| `MUN_ID` | Municipality identifier (panel id) |
-| `year` | Year |
-| `FormerMunicipality` | Municipality name (pre-2007 reform spelling) |
-| `New_Rev`, `New_Rev_PC` | New revenues from newly commissioned turbines (total / per capita), in EUR |
-| `Turbine_installed` | Number of turbines commissioned in the municipality-year |
-| `L3_Turbine_installed` | 3-year lag of installed turbines (used in the GPS) |
-| `AVG_WindDensity` | Average wind density (Global Wind Atlas, processed in QGIS) |
-| `UnemplyRate` | Unemployment rate (Statistics Denmark) |
-| `Emp_Tot`, `Emp_Tot_PC` | Total employment (level and per capita) |
-| `Population` | Municipal population |
-| Budget / income / sectoral employment variables | Statistics Denmark, converted from DKK to EUR and where relevant expressed per capita |
-
 ## Output
 
 All generated tables (`.tex`) and figures (`.png`) are written to:
@@ -265,12 +221,6 @@ All generated tables (`.tex`) and figures (`.png`) are written to:
 - `Robustness/Output/` and `Robustness/Tables_DirectControls/`
 
 The shipped package already contains the produced output files, so you can inspect them before re-running anything.
-
-## Notes
-
-1. **File paths**: The `.do` files use Windows-style backslashes in some places. On macOS / Linux, Stata accepts forward slashes; the master script uses forward slashes for portability.
-2. **Working directory**: Sub-folder `.do` files load the panel with `use "../FinalPanel.dta"`. They therefore must be run with Stata's working directory set to the **sub-folder containing the script**. The provided `MasterScript.do` handles this automatically via `cd`.
-3. **Special characters**: Danish municipality names contain `ø å æ Æ Ø Å`. The data files use UTF-8 / Latin-1 encoding depending on the source; if you see mojibake when opening files in Stata, try `set fileencoding ISO-8859-1` or open the script in a UTF-8 aware editor.
 
 ## License
 
