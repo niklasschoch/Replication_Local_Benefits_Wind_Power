@@ -1,0 +1,14 @@
+# Windows / macOS / Linux noise
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+*~
+
+# Stata side-effects (uncomment if you don't want them tracked)
+# *.smcl
+# *.log
+
+# Editor folders
+.vscode/
+.idea/

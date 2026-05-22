@@ -1,0 +1,21 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Effect of Wind Power Deployment on the Municipal Budget - Excluding the bottom 25\% \label{budgetresults25}}
+\begin{tabular*}{\hsize}{@{\hskip\tabcolsep\extracolsep\fill}l*{7}{c}}
+\toprule
+\multicolumn{8}{l}{\parbox{11cm}{Outcome variable: Municipal budget by type, normalised per capita.}} \\ \multicolumn{8}{l}{\parbox{11cm}{Explanatory variables: Generalised Propensity Score, New revenues from wind power deployment}} \\ \midrule & Total & Admin & Educ. & Health & Housing & Utilities & Infra \\ \toprule
+\addlinespace \makecell{L.Revenue \\ per capita}&       0.458\sym{***}&      0.0458\sym{**} &     0.00836         &       0.277\sym{***}&    -0.00822         &     -0.0637         &       0.189\sym{***}\\
+            &     (0.000)         &     (0.014)         &     (0.872)         &     (0.008)         &     (0.746)         &     (0.291)         &     (0.003)         \\
+\makecell{L(2).Revenue \\ per capita}&       0.344         &      0.0199         &      0.0380         &       0.258         &   -0.000883         &      0.0485\sym{*}  &     -0.0452         \\
+            &     (0.209)         &     (0.673)         &     (0.446)         &     (0.230)         &     (0.981)         &     (0.054)         &     (0.100)         \\
+\makecell{L(3).Revenue \\ per capita}&      0.0366         &      0.0823         &     -0.0663         &      0.0471         &     -0.0346         &      -0.212\sym{**} &       0.215\sym{*}  \\
+            &     (0.847)         &     (0.292)         &     (0.555)         &     (0.799)         &     (0.486)         &     (0.017)         &     (0.062)         \\
+GPS         &     -2030.1\sym{**} &       196.3         &       70.70         &     -2290.7\sym{***}&      -232.7         &       75.79         &       229.7\sym{**} \\
+            &     (0.013)         &     (0.283)         &     (0.767)         &     (0.001)         &     (0.214)         &     (0.699)         &     (0.033)         \\\addlinespace
+\midrule
+\addlinespace Year FE&         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace \midrule \addlinespace Observations&         505         &         505         &         505         &         505         &         505         &         505         &         505         \\
+\bottomrule
+\multicolumn{8}{l}{\footnotesize p-values in parentheses, $^{*}\, p<0.1$, $^{**}\, p<0.05$, $^{***}\, p<0.01$}\\
+\end{tabular*}
+\end{table}

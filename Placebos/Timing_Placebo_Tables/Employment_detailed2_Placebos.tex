@@ -1,0 +1,17 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Placebo of Wind Power Deployment on Employment - Varied Timing \label{employmentplacebo2}}
+\begin{tabular*}{\hsize}{@{\hskip\tabcolsep\extracolsep\fill}l*{7}{c}}
+\toprule
+\multicolumn{7}{l}{\parbox{11cm}{Outcome variable: Change in employment by type, normalised per capita. }} \\ \multicolumn{7}{l}{\parbox{11cm}{Explanatory variables: Placebo Treatment: Revenues Three Years in the Future, GPS}} \\ \midrule & Business Activities & Public Administration & Wholesale (No vehicles) & Health activities & Transport & Associations and Culture & Mfr. of food \\ \midrule
+\addlinespace Placebo&     -0.0297         &      0.0288         &     -0.0180         &      0.0161         &      0.0125         &      0.0339         &    0.000223         \\
+            &     (0.245)         &     (0.273)         &     (0.521)         &     (0.275)         &     (0.524)         &     (0.192)         &     (0.992)         \\\addlinespace
+GPS         &      -30.94\sym{**} &       12.52         &      -14.58         &      -1.865         &       29.66\sym{**} &      -34.71\sym{**} &       2.295         \\
+            &     (0.018)         &     (0.303)         &     (0.213)         &     (0.813)         &     (0.039)         &     (0.023)         &     (0.884)         \\\addlinespace
+\midrule
+\addlinespace Year FE&         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace \midrule \addlinespace Observations&         680         &         680         &         680         &         680         &         680         &         680         &         680         \\
+\bottomrule
+\multicolumn{8}{l}{\footnotesize p-values in parentheses, $^{*}\, p<0.1$, $^{**}\, p<0.05$, $^{***}\, p<0.01$}\\
+\end{tabular*}
+\end{table}

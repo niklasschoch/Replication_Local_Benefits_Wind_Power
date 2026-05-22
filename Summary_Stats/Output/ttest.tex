@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[margin=1in]{geometry}
+\begin{document}
+
+\begin{table}[tbp] \centering
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+\begin{tabularx}{\linewidth}{@{}lCCCCC@{}}
+
+\toprule
+{Variable}&{Mean\_No\_Rev}&{Mean\_New\_Rev}&{Difference\_Mean}&{T\_statistic}&{P\_Value} \tabularnewline
+\midrule \addlinespace[\belowrulesep]
+Population&14800.9&16276.7&1475.8&-0.3&0.8 \tabularnewline
+Income, total&269.2&264.6&-4.6&0.1&1.0 \tabularnewline
+Entrepreneurial Income&18.9&22.9&4.0&-0.8&0.4 \tabularnewline
+Budget, total&43.7&47.6&3.9&-0.3&0.8 \tabularnewline
+Employment, total&7818.2&8205.3&387.1&-0.2&0.9 \tabularnewline
+Agr. Surface&4910.1&11770.5&6860.4&-5.6&0.0 \tabularnewline
+Avg. Wind Density&356.8&394.8&38.1&-2.8&0.0 \tabularnewline
+Stock of installed Turbines&5.1&13.7&8.6&-2.5&0.0 \tabularnewline
+\bottomrule 
+
+\end{tabularx}
+\end{table}
+\end{document}

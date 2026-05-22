@@ -1,0 +1,19 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Effect of Wind Power Deployment on the Municipal Budget - Direct Inclusion of Controls}
+\begin{tabular*}{\hsize}{@{\hskip\tabcolsep\extracolsep\fill}l*{7}{c}}
+\toprule
+\multicolumn{8}{l}{\parbox{11cm}{Outcome variable: Change in municipal budget by type, normalised per capita.}} \\ \multicolumn{8}{l}{\parbox{11cm}{Explanatory variables: New revenues from wind power deployment, lagged wind density, lagged stock of installed turbines, lagged unemployment rate}} \\ \midrule & Total & Admin & Educ. & Health & Housing & Utilities & Infra \\ \toprule
+\addlinespace \makecell{L.Revenue \\ per capita}&       0.361\sym{***}&      0.0438\sym{***}&     0.00301         &       0.256\sym{***}&     -0.0101         &     -0.0682         &       0.132\sym{*}  \\
+            &     (0.000)         &     (0.006)         &     (0.937)         &     (0.000)         &     (0.779)         &     (0.267)         &     (0.096)         \\
+\makecell{L(2).Revenue \\ per capita}&       0.306         &      0.0149         &      0.0601         &       0.217         &     0.00462         &      0.0278         &     -0.0294         \\
+            &     (0.218)         &     (0.741)         &     (0.170)         &     (0.252)         &     (0.900)         &     (0.230)         &     (0.346)         \\
+\makecell{L(3).Revenue \\ per capita}&       0.121         &      0.0576         &     -0.0227         &      0.0976         &     -0.0435         &      -0.107         &       0.137         \\
+            &     (0.346)         &     (0.273)         &     (0.732)         &     (0.463)         &     (0.193)         &     (0.183)         &     (0.219)         \\
+\midrule
+\addlinespace Year FE&         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace \midrule \addlinespace Observations&         641         &         641         &         641         &         641         &         641         &         641         &         641         \\
+\bottomrule
+\multicolumn{8}{l}{\footnotesize p-values in parentheses, $^{*}\, p<0.1$, $^{**}\, p<0.05$, $^{***}\, p<0.01$}\\
+\end{tabular*}
+\end{table}

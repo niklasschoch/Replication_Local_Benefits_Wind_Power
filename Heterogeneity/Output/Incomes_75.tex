@@ -1,0 +1,21 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Effect of Wind Power Deployment on the Personal Income - Excluding the top 25\% \label{incomeresults75}}
+\begin{tabular*}{\hsize}{@{\hskip\tabcolsep\extracolsep\fill}l*{6}{c}}
+\toprule
+\multicolumn{7}{l}{\parbox{11cm}{Outcome variable: Income by type, normalised per capita. }} \\ \multicolumn{7}{l}{\parbox{11cm}{Explanatory variables: Generalised Propensity Score, New revenues from wind power deployment}} \\ \midrule & Total & Entre. & Wages & Pensions & Educ. & Benefits \\ \toprule
+\addlinespace \makecell{L.Revenue \\ per capita}&       1.262         &       0.927\sym{**} &       0.106         &      0.0774         &     -0.0124         &     -0.0416         \\
+            &     (0.140)         &     (0.024)         &     (0.770)         &     (0.622)         &     (0.215)         &     (0.743)         \\
+\makecell{L(2).Revenue \\ per capita}&      -0.995         &       0.269         &      -0.473         &       0.204         &     -0.0153         &       0.353\sym{**} \\
+            &     (0.404)         &     (0.557)         &     (0.360)         &     (0.247)         &     (0.338)         &     (0.031)         \\
+\makecell{L(3).Revenue \\ per capita}&      0.0302         &       0.353         &      -0.417         &       0.104         &     0.00633         &      -0.171         \\
+            &     (0.964)         &     (0.441)         &     (0.222)         &     (0.457)         &     (0.731)         &     (0.231)         \\
+GPS         &     -1492.4         &      -407.9         &      1615.2         &     -1465.7\sym{***}&       75.44         &      -333.2         \\
+            &     (0.502)         &     (0.707)         &     (0.303)         &     (0.004)         &     (0.176)         &     (0.533)         \\\addlinespace
+\midrule
+\addlinespace Year FE&         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace \midrule \addlinespace Observations&         458         &         458         &         458         &         458         &         458         &         458         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize p-values in parentheses, $^{*}\, p<0.1$, $^{**}\, p<0.05$, $^{***}\, p<0.01$}\\
+\end{tabular*}
+\end{table}

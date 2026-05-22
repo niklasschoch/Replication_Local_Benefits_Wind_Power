@@ -1,0 +1,17 @@
+# Auto-detect text files and normalize line endings to LF in the repo.
+* text=auto eol=lf
+
+# Source/text files
+*.do        text eol=lf
+*.md        text eol=lf
+*.tex       text eol=lf
+*.txt       text eol=lf
+
+# Binary files (no diffing, no line-ending conversion)
+*.dta       binary
+*.xls       binary
+*.xlsx      binary
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.pdf       binary

@@ -1,0 +1,3150 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\nikla\OneDrive\Desktop\Dokumente\Research\ZEW\Wind-Project\Replication_Package_Old\Data\log/Output.log
+  log type:  text
+ opened on:  23 Jan 2025, 18:17:25
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. * The data sets Temp1, Temp2, Temp3, Temp4, Temp5, Temp6, Temp7, Temp10 come from the same source and thus are similar in reporting.  
+. * We define a Stata-Programm "DataCleaning" to harmonize the reporting with the other data sources 
+. *Predefined data cleaning program 
+. program DataCleaning
+  1. replace FormerMunicipality="BornholmsRegions" if FormerMunicipality=="Bornholm(excl.Christiansø)"
+  2. replace FormerMunicipality="Bornholm" if FormerMunicipality=="BornholmsRegions"
+  3. replace FormerMunicipality="Faxe" if FormerMunicipality=="Fakse"
+  4. replace FormerMunicipality="Fåborg" if FormerMunicipality=="Faaborg"
+  5. replace FormerMunicipality="Grenå" if FormerMunicipality=="Grenaa"
+  6. replace FormerMunicipality="Holmegård" if FormerMunicipality=="Holmegaard"
+  7. replace FormerMunicipality="Hårby" if FormerMunicipality=="Haarby"
+  8. replace FormerMunicipality="Åbenrå" if FormerMunicipality=="Aabenraa"
+  9. replace FormerMunicipality="Åbybro" if FormerMunicipality=="Aabybro"
+ 10. replace FormerMunicipality="Ålborg" if FormerMunicipality=="Aalborg"
+ 11. replace FormerMunicipality="Ålestrup" if FormerMunicipality=="Aalestrup"
+ 12. replace FormerMunicipality="Års" if FormerMunicipality=="Aars"
+ 13. replace FormerMunicipality="Årup"  if FormerMunicipality=="Aarup"
+ 14. replace FormerMunicipality="Torslunde-Ishøj" if FormerMunicipality=="Ishøj" 
+ 15. replace FormerMunicipality="NykøbingFalsters" if FormerMunicipality=="Nykøbing-Falster" 
+ 16. replace FormerMunicipality="Nørreåby" if FormerMunicipality=="NørreAaby" 
+ 17. replace FormerMunicipality="Sydlangelands" if FormerMunicipality=="Sydlangeland" 
+ 18. replace FormerMunicipality="Aakrikreby" if FormerMunicipality=="Aakirkeby(-2002)"
+ 19. replace FormerMunicipality="Allinge-Gudhjem" if FormerMunicipality=="Allinge-Gudhjem(-2002)"
+ 20. replace FormerMunicipality="Hasle" if FormerMunicipality=="Hasle(-2002)"
+ 21. replace FormerMunicipality="Nexø" if FormerMunicipality=="Nexø(-2002)"
+ 22. replace FormerMunicipality="Rønne" if FormerMunicipality=="Rønne(-2002)"
+ 23. replace FormerMunicipality="Marstal" if FormerMunicipality=="Marstal(-2005/2006)" 
+ 24. *-------------------------- 
+. * Drop county data (we focus on the municipality data)
+. drop if FormerMunicipality=="Copenhagenregion"
+ 25. drop if FormerMunicipality=="AllDenmark"
+ 26. drop if FormerMunicipality=="ÅrhusCounty"
+ 27. drop if FormerMunicipality=="CopenhagenCounty"
+ 28. drop if FormerMunicipality=="CopenhagenandFrederiksberg"
+ 29. drop if FormerMunicipality=="FrederiksborgCounty"
+ 30. drop if FormerMunicipality=="FunenCounty"
+ 31. drop if FormerMunicipality=="NorthJutlandCounty"
+ 32. drop if FormerMunicipality=="RingkøbingCounty"
+ 33. drop if FormerMunicipality=="RoskildeCounty"
+ 34. drop if FormerMunicipality=="SouthJutlandCounty"
+ 35. drop if FormerMunicipality=="StorstrømCounty"
+ 36. drop if FormerMunicipality=="ViborgCounty"
+ 37. drop if FormerMunicipality=="VejleCounty"
+ 38. drop if FormerMunicipality=="WestZealandCounty"
+ 39. drop if FormerMunicipality=="RibeCounty"
+ 40. *---------------------------
+. drop if FormerMunicipality=="Christiansø(Outsidethemunicipalities)"
+ 41. *---------------------------
+. * Drop outsiders
+. drop if FormerMunicipality=="OutsideDenmark"
+ 42. drop if FormerMunicipality=="Municipalitynotstated"
+ 43. drop if FormerMunicipality=="Greenland"
+ 44. drop if FormerMunicipality=="FaroeIslands"
+ 45. drop if FormerMunicipality=="Abroad/EUpension(997)"
+ 46. drop if FormerMunicipality=="Abroad"
+ 47. *----------------------------
+. * Drop council data (we focus on the municipality data)
+. drop if FormerMunicipality=="GreaterCopenhagenCouncil"
+ 48. drop if FormerMunicipality=="TheGreaterCopenhagenDevelopmentCouncil"
+ 49. drop if FormerMunicipality=="CopenhagenCountyCouncilDistrict"
+ 50. drop if FormerMunicipality=="FrederiksborgCountyCouncilDistrict"
+ 51. drop if FormerMunicipality=="RoskildeCountyCouncilDistrict"
+ 52. drop if FormerMunicipality=="WestZealandCountyCouncilDistrict"
+ 53. drop if FormerMunicipality=="StorstrømCountyCouncilDistrict"
+ 54. drop if FormerMunicipality=="BornholmCountyCouncilDistrict"
+ 55. drop if FormerMunicipality=="FunenCountyCouncilDistrict"
+ 56. drop if FormerMunicipality=="SouthJutlandCountyCouncilDistrict"
+ 57. drop if FormerMunicipality=="RibeCountyCouncilDistrict"
+ 58. drop if FormerMunicipality=="VejleCountyCouncilDistrict"
+ 59. drop if FormerMunicipality=="RingkøbingCountyCouncilDistrict"
+ 60. drop if FormerMunicipality=="ÅrhusCountyCouncilDistrict"
+ 61. drop if FormerMunicipality=="ViborgCountyCouncilDistrict"
+ 62. drop if FormerMunicipality=="NorthJutlandCountyCouncilDistrict"
+ 63. *----------------------------
+. end 
+
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. * The code proceeds as follows:
+. * First, we import the sheets from the Excel-File "Data Sources and Panel.xls". 
+. * Then we do the cleaning and editing needed in the names. We reshape the data into a municipality-year format.
+. * This is done separately for each data-sheet (Municipal Budget, Income, Employment, Unemployment,...).   
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. *                                                Data from Statistics Denmark  
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. *                                                       Municipal Budget 
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. import excel "./Data Sources and Panel.xls", sheet("Budget BUD1 Total") firstrow clear 
+(19 vars, 2,163 obs)
+
+. *---------------------
+. rename A TypeofBudget
+
+. replace TypeofBudget = subinstr(TypeofBudget," ","",.)
+(2,163 real changes made)
+
+. rename B FormerMunicipality
+
+. replace FormerMunicipality = subinstr(FormerMunicipality," ","",.)
+(329 real changes made)
+
+. *------------------------------------------------------------------------------*
+. gen TEMP_ID= _n
+
+. reshape long _,i(TEMP_ID) j(year)
+(j = 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations            2,163   ->   36,771      
+Number of variables                  20   ->   5           
+j variable (17 values)                    ->   year
+xij variables:
+                  _1990 _1991 ... _2006   ->   _
+-----------------------------------------------------------------------------
+
+. *------------------------------------
+. egen Budget_ID=group(TypeofBudget) 
+
+. egen MUN_ID=group(FormerMunicipality)
+
+. *------------------------------------
+. drop TEMP_ID TypeofBudget
+
+. *------------------------------------
+. rename _ Budget_
+
+. reshape wide Budget_, i(MUN_ID year) j(Budget_ID) 
+(j = 1 2 3 4 5 6 7)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations           36,771   ->   5,253       
+Number of variables                   5   ->   10          
+j variable (7 values)         Budget_ID   ->   (dropped)
+xij variables:
+                                Budget_   ->   Budget_1 Budget_2 ... Budget_7
+-----------------------------------------------------------------------------
+
+. drop MUN_ID
+
+. *------------------------------------------------------------------------------*
+. *                     Renaming  and labelling of the variables 
+. *------------------------------------------------------------------------------*
+. * label variables 
+. qui {
+
+. *------------------------------------------------------------------------------*
+. save "./TEMP/Temp1_1", replace 
+(file ./TEMP/Temp1_1.dta not found)
+file ./TEMP/Temp1_1.dta saved
+
+. *------------------------------------------------------------------------------*
+. import excel "./Data Sources and Panel.xls", sheet("Budget BUD1 Expenditure") firstrow clear 
+(19 vars, 2,163 obs)
+
+. *---------------------
+. rename A TypeofBudget
+
+. replace TypeofBudget = subinstr(TypeofBudget," ","",.)
+(2,163 real changes made)
+
+. rename B FormerMunicipality
+
+. replace FormerMunicipality = subinstr(FormerMunicipality," ","",.)
+(329 real changes made)
+
+. *------------------------------------------------------------------------------*
+. gen TEMP_ID= _n
+
+. reshape long _,i(TEMP_ID) j(year)
+(j = 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations            2,163   ->   36,771      
+Number of variables                  20   ->   5           
+j variable (17 values)                    ->   year
+xij variables:
+                  _1990 _1991 ... _2006   ->   _
+-----------------------------------------------------------------------------
+
+. *------------------------------------
+. egen Budget_ID=group(TypeofBudget) 
+
+. egen MUN_ID=group(FormerMunicipality)
+
+. *------------------------------------
+. drop TEMP_ID TypeofBudget
+
+. *------------------------------------
+. rename _ Budget_
+
+. reshape wide Budget_, i(MUN_ID year) j(Budget_ID) 
+(j = 1 2 3 4 5 6 7)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations           36,771   ->   5,253       
+Number of variables                   5   ->   10          
+j variable (7 values)         Budget_ID   ->   (dropped)
+xij variables:
+                                Budget_   ->   Budget_1 Budget_2 ... Budget_7
+-----------------------------------------------------------------------------
+
+. drop MUN_ID
+
+. *------------------------------------------------------------------------------*
+. *                     Renaming  and labelling of the variables 
+. *------------------------------------------------------------------------------*
+. * label variables 
+. qui {
+
+. *------------------------------------------------------------------------------*
+. save "./TEMP/Temp1_2", replace 
+(file ./TEMP/Temp1_2.dta not found)
+file ./TEMP/Temp1_2.dta saved
+
+. *------------------------------------------------------------------------------*
+. import excel "./Data Sources and Panel.xls", sheet("Budget BUD1 Revenue") firstrow clear 
+(19 vars, 2,163 obs)
+
+. *---------------------
+. rename A TypeofBudget
+
+. replace TypeofBudget = subinstr(TypeofBudget," ","",.)
+(2,163 real changes made)
+
+. rename B FormerMunicipality
+
+. replace FormerMunicipality = subinstr(FormerMunicipality," ","",.)
+(329 real changes made)
+
+. *------------------------------------------------------------------------------*
+. gen TEMP_ID= _n
+
+. reshape long _,i(TEMP_ID) j(year)
+(j = 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations            2,163   ->   36,771      
+Number of variables                  20   ->   5           
+j variable (17 values)                    ->   year
+xij variables:
+                  _1990 _1991 ... _2006   ->   _
+-----------------------------------------------------------------------------
+
+. *------------------------------------
+. egen Budget_ID=group(TypeofBudget) 
+
+. egen MUN_ID=group(FormerMunicipality)
+
+. *------------------------------------
+. drop TEMP_ID TypeofBudget
+
+. *------------------------------------
+. rename _ Budget_
+
+. reshape wide Budget_, i(MUN_ID year) j(Budget_ID) 
+(j = 1 2 3 4 5 6 7)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations           36,771   ->   5,253       
+Number of variables                   5   ->   10          
+j variable (7 values)         Budget_ID   ->   (dropped)
+xij variables:
+                                Budget_   ->   Budget_1 Budget_2 ... Budget_7
+-----------------------------------------------------------------------------
+
+. drop MUN_ID
+
+. *------------------------------------------------------------------------------*
+. *                     Renaming  and labelling of the variables 
+. *------------------------------------------------------------------------------*
+. * label variables 
+. qui {
+
+. *------------------------------------------------------------------------------*
+. save "./TEMP/Temp1_3", replace 
+(file ./TEMP/Temp1_3.dta not found)
+file ./TEMP/Temp1_3.dta saved
+
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. use  "./TEMP/Temp1_1", clear 
+
+. mmerge FormerMunicipality year using "./TEMP/Temp1_2", type(1:1)
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | 1:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | ./TEMP/Temp1_1.dta
+                 obs |   5253
+                vars |      9
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp1_2.dta
+                 obs |   5253
+                vars |      9
+          match vars | FormerMunicipality year  (key)
+---------------------+---------------------------------------------------------
+result          file | ./TEMP/Temp1_1.dta
+                 obs |   5253
+                vars |     18  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |   5253  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+. mmerge FormerMunicipality year using "./TEMP/Temp1_3", type(1:1)
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | 1:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | ./TEMP/Temp1_1.dta
+                 obs |   5253
+                vars |     16
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp1_3.dta
+                 obs |   5253
+                vars |      9
+          match vars | FormerMunicipality year  (key)
+---------------------+---------------------------------------------------------
+result          file | ./TEMP/Temp1_1.dta
+                 obs |   5253
+                vars |     25  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |   5253  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+. sort _merge FormerMunicipality year
+
+. drop _merge
+
+. *------------------------------------------------------------------------------*
+. qui DataCleaning // execute predefined data cleaning program
+
+. save "./TEMP/Temp1", replace 
+(file ./TEMP/Temp1.dta not found)
+file ./TEMP/Temp1.dta saved
+
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. *                                                       Income Categories  
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. import excel "./Data Sources and Panel.xls", sheet("Income IB811") firstrow clear 
+(17 vars, 7,032 obs)
+
+. *-----------------------
+. rename A TypeofIncome
+
+. replace TypeofIncome = subinstr(TypeofIncome," ","",.)
+(6,153 real changes made)
+
+. rename B FormerMunicipality
+
+. replace FormerMunicipality = subinstr(FormerMunicipality," ","",.)
+(744 real changes made)
+
+. *------------------------------------------------------------------------------*
+. gen TEMP_ID= _n
+
+. reshape long _,i(TEMP_ID) j(year)
+(j = 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations            7,032   ->   105,480     
+Number of variables                  18   ->   5           
+j variable (15 values)                    ->   year
+xij variables:
+                  _1991 _1992 ... _2005   ->   _
+-----------------------------------------------------------------------------
+
+. *------------------------------------
+. egen Income_ID=group(TypeofIncome) 
+
+. egen MUN_ID=group(FormerMunicipality)
+
+. *------------------------------------
+. drop TEMP_ID TypeofIncome
+
+. *------------------------------------
+. rename _ Income_
+
+. reshape wide Income_, i(MUN_ID year) j(Income_ID) 
+(j = 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations          105,480   ->   4,395       
+Number of variables                   5   ->   27          
+j variable (24 values)        Income_ID   ->   (dropped)
+xij variables:
+                                Income_   ->   Income_1 Income_2 ... Income_24
+-----------------------------------------------------------------------------
+
+. drop MUN_ID
+
+. *------------------------------------------------------------------------------*
+. *                      Renaming and labelling of the variables                             *
+. *------------------------------------------------------------------------------*
+. * label variables 
+. qui {
+
+. *------------------------------------------------------------------------------*
+. qui DataCleaning // execute predefined data cleaning program
+
+. save "./TEMP/Temp2", replace 
+(file ./TEMP/Temp2.dta not found)
+file ./TEMP/Temp2.dta saved
+
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. *                                       Sectoral Employment - aggregated by place of work 
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. import excel "./Data Sources and Panel.xls", sheet("Employment PEND11") firstrow clear 
+(16 vars, 8,073 obs)
+
+. *-----------------
+. rename A industry27grouping
+
+. replace industry27grouping = subinstr(industry27grouping," ","",.)
+(8,073 real changes made)
+
+. rename B FormerMunicipality
+
+. replace FormerMunicipality = subinstr(FormerMunicipality," ","",.)
+(945 real changes made)
+
+. *-----------------
+. gen TEMP_ID= _n
+
+. reshape long _,i(TEMP_ID) j(year)
+(j = 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations            8,073   ->   104,949     
+Number of variables                  17   ->   6           
+j variable (13 values)                    ->   year
+xij variables:
+                  _1993 _1994 ... _2005   ->   _
+-----------------------------------------------------------------------------
+
+. rename _ Emp_WP_
+
+. *-----------------
+. egen industry=sieve(industry27grouping), keep(n) 
+
+. destring industry, replace
+industry: all characters numeric; replaced as int
+
+. egen MUN_ID=group(FormerMunicipality)
+
+. *----------------
+. drop industry27grouping TEMP_ID P
+
+. *----------------
+. reshape wide Emp_WP_, i(MUN_ID year) j(industry) 
+(j = 109 500 1009 1509 1709 2009 2309 2600 2709 3600 4009 4500 5000 5100 5200 5500 6009 6400 6509 7009 7209 7500 8000 8519 8539 9009 9800)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations          104,949   ->   3,887       
+Number of variables                   5   ->   30          
+j variable (27 values)         industry   ->   (dropped)
+xij variables:
+                                Emp_WP_   ->   Emp_WP_109 Emp_WP_500 ... Emp_WP_9800
+-----------------------------------------------------------------------------
+
+. drop MUN_ID
+
+. *----------------
+. * computation of total employment (sum of all sectoral employment categories)
+. gen Emp_WP_Tot=(Emp_WP_109 + Emp_WP_500 + Emp_WP_1009 + Emp_WP_1509 + Emp_WP_1709 + Emp_WP_2009 + Emp_WP_2309 + Emp_WP_2600 + Emp_WP_2709 + Emp_WP_36
+> 00 + Emp_WP_4009 + Emp_WP_4500 + Emp_WP_5000 + Emp_WP_5100 + Emp_WP_5200 + Emp_WP_5500 + Emp_WP_6009 + Emp_WP_6400 + Emp_WP_6509 + Emp_WP_7009 + Emp_
+> WP_7209 + Emp_WP_7500 + Emp_WP_8000 + Emp_WP_8519 + Emp_WP_8539 + Emp_WP_9009 + Emp_WP_9800)
+
+. *------------------------------------------------------------------------------*
+. *                                               Labelling the variables
+. *------------------------------------------------------------------------------*
+. * label variables 
+. qui {
+
+. *------------------------------------------------------------------------------*
+. qui DataCleaning // execute predefined data cleaning program 
+
+. save "./TEMP/Temp3", replace 
+(file ./TEMP/Temp3.dta not found)
+file ./TEMP/Temp3.dta saved
+
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. *                                       Sectoral Employment - aggregated by residence  
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. import excel "./Data Sources and Panel.xls", sheet("Employment RASU2") firstrow clear 
+(16 vars, 7,911 obs)
+
+. *-----------------
+. rename A industry27grouping
+
+. replace industry27grouping = subinstr(industry27grouping," ","",.)
+(7,911 real changes made)
+
+. rename B FormerMunicipality
+
+. replace FormerMunicipality = subinstr(FormerMunicipality," ","",.)
+(837 real changes made)
+
+. *-----------------
+. gen TEMP_ID= _n
+
+. reshape long _,i(TEMP_ID) j(year)
+(j = 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations            7,911   ->   110,754     
+Number of variables                  17   ->   5           
+j variable (14 values)                    ->   year
+xij variables:
+                  _1993 _1994 ... _2006   ->   _
+-----------------------------------------------------------------------------
+
+. rename _ Emp_
+
+. *-----------------
+. egen industry=sieve(industry27grouping), keep(n) 
+
+. destring industry, replace
+industry: all characters numeric; replaced as int
+
+. egen MUN_ID=group(FormerMunicipality)
+
+. *----------------
+. drop industry27grouping TEMP_ID
+
+. *----------------
+. reshape wide Emp_, i(MUN_ID year) j(industry) 
+(j = 109 500 1009 1509 1709 2009 2309 2600 2709 3600 4009 4500 5000 5100 5200 5500 6009 6400 6509 7009 7209 7500 8000 8519 8539 9009 9800)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations          110,754   ->   4,102       
+Number of variables                   5   ->   30          
+j variable (27 values)         industry   ->   (dropped)
+xij variables:
+                                   Emp_   ->   Emp_109 Emp_500 ... Emp_9800
+-----------------------------------------------------------------------------
+
+. drop MUN_ID
+
+. *----------------
+. * computation of total employment 
+. gen Emp_Tot=(Emp_109 + Emp_500 + Emp_1009 + Emp_1509 + Emp_1709 + Emp_2009 + Emp_2309 + Emp_2600 + Emp_2709 + Emp_3600 + Emp_4009 + Emp_4500 + Emp_50
+> 00 + Emp_5100 + Emp_5200 + Emp_5500 + Emp_6009 + Emp_6400 + Emp_6509 + Emp_7009 + Emp_7209 + Emp_7500 + Emp_8000 + Emp_8519 + Emp_8539 + Emp_9009 + E
+> mp_9800)
+
+. *------------------------------------------------------------------------------*
+. *                        Labelling of the variables
+. *------------------------------------------------------------------------------*
+. * label variables 
+. qui {
+
+. *------------------------------------------------------------------------------*
+. qui DataCleaning // execute predefined data cleaning program 
+
+. save "./TEMP/Temp4", replace 
+(file ./TEMP/Temp4.dta not found)
+file ./TEMP/Temp4.dta saved
+
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. *                                       Unemployment - aggregated by municipality of residence 
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. import excel "./Data Sources and Panel.xls", sheet("Unemployment AAR") firstrow clear 
+(18 vars, 294 obs)
+
+. *------------
+. rename A FormerMunicipality
+
+. replace FormerMunicipality = subinstr(FormerMunicipality," ","",.)
+(32 real changes made)
+
+. *------------
+. gen TEMP_ID= _n
+
+. reshape long _,i(TEMP_ID) j(year)
+(j = 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations              294   ->   4,998       
+Number of variables                  19   ->   4           
+j variable (17 values)                    ->   year
+xij variables:
+                  _1990 _1991 ... _2006   ->   _
+-----------------------------------------------------------------------------
+
+. drop TEMP_ID 
+
+. *------------
+. rename _ Unemplymnt
+
+. label var Unemplymnt "Unemployment, aggregated by region" 
+
+. *------------------------------------------------------------------------------*
+. qui DataCleaning // execute predefined data cleaning program 
+
+. save "./TEMP/Temp5", replace 
+(file ./TEMP/Temp5.dta not found)
+file ./TEMP/Temp5.dta saved
+
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. *                                       Population - aggregated by municipality of residence 
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. import excel "./Data Sources and Panel.xls", sheet("Population BEF1A") firstrow clear 
+(18 vars, 293 obs)
+
+. *------------
+. rename A FormerMunicipality
+
+. replace FormerMunicipality = subinstr(FormerMunicipality," ","",.)
+(31 real changes made)
+
+. *------------
+. gen TEMP_ID= _n
+
+. reshape long _,i(TEMP_ID) j(year)
+(j = 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations              293   ->   4,981       
+Number of variables                  19   ->   4           
+j variable (17 values)                    ->   year
+xij variables:
+                  _1990 _1991 ... _2006   ->   _
+-----------------------------------------------------------------------------
+
+. drop TEMP_ID 
+
+. *------------
+. rename _ Population
+
+. label var Population "Population, aggregated by region" 
+
+. *------------------------------------------------------------------------------*
+. qui DataCleaning // execute predefined data cleaning program 
+
+. save "./TEMP/Temp6", replace 
+(file ./TEMP/Temp6.dta not found)
+file ./TEMP/Temp6.dta saved
+
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. *                                       Agricultural Land Surface 
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. * The agricultural land surface in each municipality is computed with two data sets
+. * We have :
+. * - data on agricultural land surface at the county level (for 12 counties) for all years ("BDF1" in "Data Sources and Panel")
+. * - and data on agricultural land surface at the municipal level (for 251 municipalities) for the year 1999 only ("BDF5" in "Data Sources and Panel")
+. * ----------------------------
+. * As we do not have the data on agricultural land surface in all municipalities over time, we use the changes in the agricultural land surface at the
+>  county level to deduct a proxy for the changes in agricultural land surface in each municipality
+. *-----------------------------
+. * The computation is done in three steps: 
+. * Step 1 : Import, apply edits to municipality names, and join the two data sets  
+. * Step 2 : The share is calculated as followed: New var named "MUN_share1999" =  municipal agricultural surface ("Agr_Mun1999")/ county agricultural 
+> surface in the year 1999 ("_1999")
+. * New variable (AgrSurface) = multiplication of each municipality's individual share (assumed constant) with the yearly data of agricultural surface 
+> at the county level 
+. * Step 3 : 
+. *-------------------------------------------------------------------------------
+. *       Step 1:         Agricultural area, from census 1999  // BDF5 
+. *-------------------------------------------------------------------------------
+. import excel "./Data Sources and Panel.xls", sheet("CountyData") firstrow clear 
+(2 vars, 278 obs)
+
+. save "./TEMP/CountyData",replace
+(file ./TEMP/CountyData.dta not found)
+file ./TEMP/CountyData.dta saved
+
+. *-------------------------------
+. import excel "./Data Sources and Panel.xls", sheet("Agricultural Area BDF5") firstrow clear 
+(3 vars, 278 obs)
+
+. *------------
+. rename B FormerMunicipality
+
+. replace FormerMunicipality = subinstr(FormerMunicipality," ","",.)
+(16 real changes made)
+
+. *------------ 
+. gen TEMP_ID= _n
+
+. reshape long _,i(TEMP_ID) j(year)
+(j = 1999)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations              278   ->   278         
+Number of variables                   4   ->   5           
+j variable (1 values)                     ->   year
+xij variables:
+                                  _1999   ->   _
+-----------------------------------------------------------------------------
+
+. drop TEMP_ID  A
+
+. *------------
+. rename _ Agr1999
+
+. label var Agr1999  "Total agricultual area on the mun level in hectare from census 1999" 
+
+. *------------------------------------------------------------------------------*
+. * The names of Danish Municipalities include special letters (like ø, å, æ) which are not always well handled by GIS & Excel.
+. * Depending on the data (source: Statistics Denmark, QGIS/DigDag) the spelling differs and the names hence have to be adjusted manually. 
+.  qui {
+
+. *-------------------------------------------------------------------------------
+. * In this step, we identify, for each municipality, the county to which it belongs
+. mmerge FormerMunicipality using "./TEMP/CountyData", type(1:1) 
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | 1:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | <data in memory not named>
+                 obs |    278
+                vars |      3
+          match vars | FormerMunicipality  (key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/CountyData.dta
+                 obs |    278
+                vars |      2
+          match vars | FormerMunicipality  (key)
+---------------------+---------------------------------------------------------
+result          file | <data in memory not named>
+                 obs |    278
+                vars |      6  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |    278  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+. drop _merge 
+
+. *----------------
+. egen County_ID=group(County) 
+
+. *----------------
+. qui DataCleaning // execute predefined data cleaning program
+
+. save "./TEMP/Temp7",replace
+(file ./TEMP/Temp7.dta not found)
+file ./TEMP/Temp7.dta saved
+
+. *------------------------------------------------------------------------------*
+. *                       Agricultural area, at the County Level // BDF1 
+. *------------------------------------------------------------------------------*
+. import excel "./Data Sources and Panel.xls", sheet("Agricultural Area BDF1") firstrow clear 
+(19 vars, 13 obs)
+
+. *------------
+. rename B County
+
+. replace County="Bornholm County" if County=="Bornholm (excl. Christiansø)"
+(1 real change made)
+
+. replace County="Copenhagen County" if County=="Copenhagen region"
+(1 real change made)
+
+. drop if County=="All Denmark" 
+(1 observation deleted)
+
+. *------------
+. joinby County using "./TEMP/Temp7", unmatched(both)
+
+. drop _merge A 
+
+. *-------------------------------------------------------------------------------
+. * Step 2 : Calculation of the share of agricultural surface of each municipality in the 
+. * agricultural surface of the corresponding county
+. *-------------------------------------------------------------------------------
+. gen MUN_share1999 = Agr1999/_1999 if year==1999 
+
+. label var MUN_share1999 "Share of the municipal agricultural land surface on the total county agricultural land surface in year 1999"
+note: label truncated to 80 characters
+
+. *-----------
+. foreach VVV in 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 {
+  2. gen year`VVV' = (_`VVV'* MUN_share1999) 
+  3. drop _`VVV'
+  4. rename year`VVV' _`VVV' 
+  5. label var _`VVV' "Assumed agricultural land surface in each municipality" 
+  6. }
+
+. *-----------
+. drop year 
+
+. reshape long _,i(FormerMunicipality) j(year)
+(j = 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations              277   ->   4,709       
+Number of variables                  22   ->   7           
+j variable (17 values)                    ->   year
+xij variables:
+                  _1990 _1991 ... _2006   ->   _
+-----------------------------------------------------------------------------
+
+. rename _ AgrSurface  
+
+. label var AgrSurface "Agricultual land area in hectare"
+
+. drop Agr1999 MUN_share1999
+
+. *-------------------------
+. save "./TEMP/Temp8", replace 
+(file ./TEMP/Temp8.dta not found)
+file ./TEMP/Temp8.dta saved
+
+. *-------------------
+. drop County County_ID
+
+. save "./TEMP/Temp9", replace  
+(file ./TEMP/Temp9.dta not found)
+file ./TEMP/Temp9.dta saved
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                               Average wind density (source: Global Wind Atlas & QGIS/DigDag) 
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. import excel "./Data Sources and Panel.xls", sheet("WindPowerDensity_50m") firstrow clear 
+(13 vars, 272 obs)
+
+. drop fra til enhedid objectid enhedtype art Gridtype _median SHAPE_Area SHAPE_Leng fid
+
+. gen year=2021
+
+. rename navn FormerMunicipality
+
+. replace FormerMunicipality=subinstr(FormerMunicipality,"Kommune","",.)
+(270 real changes made)
+
+. replace FormerMunicipality = subinstr(FormerMunicipality," ","",.)
+(271 real changes made)
+
+. rename _mean AVG_WindDensity 
+
+. label var AVG_WindDensity "Average Wind Density in 50 meters hight and in W/m²"
+
+. *-------------------------
+. * The names of Danish Municipalities include special letters (like ø, å, æ) which are not always well handled by QGIS, Stata & Excel.
+. * Depending on the data (source: Statistics Denmark, QGIS/DigDag) the spelling differs and the names hence have to be adjusted manually. 
+. 
+. qui {
+
+. *-----------------------------
+. save "./TEMP/Temp11", replace 
+(file ./TEMP/Temp11.dta not found)
+file ./TEMP/Temp11.dta saved
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                                  Electricty Price Computation 
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. import excel "./Data Sources and Panel.xls", sheet("ElecPrice1985_2001") firstrow clear 
+(2 vars, 17 obs)
+
+. gen Price_West=ElecPrice
+
+. gen Price_East=ElecPrice  
+
+. drop ElecPrice 
+
+. drop if year==2000
+(1 observation deleted)
+
+. drop if year==2001 
+(1 observation deleted)
+
+. * conversion from Ore/kwh into  Eurocents/kwh, with conversion rate of 7.46038 
+. replace Price_West=Price_West/(7.46038)
+(15 real changes made)
+
+. replace Price_East=Price_East/(7.46038)
+(15 real changes made)
+
+. save "./TEMP/Temp12", replace 
+(file ./TEMP/Temp12.dta not found)
+file ./TEMP/Temp12.dta saved
+
+. *-------------------------------------------------------------------------------
+. import excel "./Data Sources and Panel.xls", sheet("ElspotPrice2000_2010") firstrow clear 
+(7 vars, 65,535 obs)
+
+. rename WestDenmark ElecPrice_West 
+
+. rename EastDenmark ElecPrice_East 
+
+. drop UnitofElspotPriceisDKK_MWh F G
+
+. *----------------------------
+. save "./TEMP/Temp13", replace 
+(file ./TEMP/Temp13.dta not found)
+file ./TEMP/Temp13.dta saved
+
+. *-----------------------------
+. import excel "./Data Sources and Panel.xls", sheet("WindPowerProd2000_2010") firstrow clear 
+(6 vars, 65,535 obs)
+
+. rename A Year 
+
+. rename B HourOfDay 
+
+. rename WestDenmarkWindpowerproduct Prod_West 
+
+. rename EastDenmarkWindpowerproduct Prod_East 
+
+. drop UnitofproductionisinMWh_h F 
+
+. *-----------------------------
+. mmerge Year HourOfDay using "./TEMP/Temp13", type(1:1) 
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | 1:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | <data in memory not named>
+                 obs |  65535
+                vars |      4
+          match vars | Year HourOfDay  (key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp13.dta
+                 obs |  65535
+                vars |      4
+          match vars | Year HourOfDay  (key)
+---------------------+---------------------------------------------------------
+result          file | <data in memory not named>
+                 obs |  65535
+                vars |      8  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |  65535  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+. drop _merge
+
+. *-----------------------------
+. gen year = yofd(Year)
+
+. drop Year
+
+. * The data on Eastern and Western electricty prices are available from January, 1st 2000 for the West part of the grid but from October, 1st 2000 for
+>  the East area. For this reason, for the time period between January, 1st to September, 30th 2000 we use the Western price as a proxy for the Eastern
+>  price
+. replace ElecPrice_East=ElecPrice_West if ElecPrice_East==. 
+(6,576 real changes made)
+
+. save "./TEMP/Temp14", replace 
+(file ./TEMP/Temp14.dta not found)
+file ./TEMP/Temp14.dta saved
+
+. *----------------------------
+. collapse(sum) Prod_West Prod_East, by(year) // computation of the sum of the yearly production 
+
+. rename Prod_West WestSUM 
+
+. rename Prod_East EastSUM 
+
+. save "./TEMP/Temp15", replace 
+(file ./TEMP/Temp15.dta not found)
+file ./TEMP/Temp15.dta saved
+
+. *-------------------------
+. use "./TEMP/Temp14", clear 
+
+. mmerge year using "./TEMP/Temp15", type(n:1) 
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | n:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | ./TEMP/Temp14.dta
+                 obs |  65535
+                vars |      6
+          match vars | year  (not a key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp15.dta
+                 obs |      8
+                vars |      3
+          match vars | year  (key)
+---------------------+---------------------------------------------------------
+variable year does not uniquely identify observations in the master data
+result          file | ./TEMP/Temp14.dta
+                 obs |  65535
+                vars |     10  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |  65535  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+. drop _merge 
+
+. *-------------------------
+. gen Price_West=0
+
+. replace Price_West=(ElecPrice_West*Prod_West)/WestSUM 
+(65,339 real changes made, 7 to missing)
+
+. gen Price_East=0 
+
+. replace Price_East=(ElecPrice_East*Prod_East)/EastSUM
+(65,237 real changes made, 8 to missing)
+
+. *-------------------------
+. collapse(sum) Price_West Price_East , by(year) 
+
+. * Conversion from DK/mWh to Euro/kWh -------------------------------------------
+. * Reminder: the production is in mWh and the price is in DK per mWh 
+. * Reminder: the conversion rate from DK to Euro is set to 7.46038
+. * I convert it into Euro. The next step of conversion into kWh per Eurocents is done in a following step. 
+. replace Price_West=Price_West/(7.46038) 
+(8 real changes made)
+
+. replace Price_East=Price_East/(7.46038) 
+(8 real changes made)
+
+. * Conversion from mWh to kWh  
+. replace Price_West=Price_West/1000      
+(8 real changes made)
+
+. replace Price_East=Price_East/1000
+(8 real changes made)
+
+. *------------------------
+. * Conversion from Euro/kWh to Eurocents/kwh 
+. replace Price_West=Price_West*100
+(8 real changes made)
+
+. replace Price_East=Price_East*100 
+(8 real changes made)
+
+. *------------------------
+. append using "./TEMP/Temp12" 
+
+. sort year
+
+. *------------------------
+. save "./TEMP/Temp16", replace 
+(file ./TEMP/Temp16.dta not found)
+file ./TEMP/Temp16.dta saved
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                                               Electricity Support Policies 
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. * data set that contains the elec price from 1985-2010
+. use "./TEMP/Temp16", clear  
+
+. *--------------------------
+. * The computation of the electricity support policies is based on the English document "The history of Danish support for wind power ", later complem
+> ented by elements found in the original Danish version:
+. drop  Price_West
+
+. rename Price_East ElecPrice
+
+. * Text: From 1984 to 2001, the Danish support for production from wind turbines was based on an electricity price which was 85% of the local retail p
+> rice of electricity excluding taxes (price set by the government). 
+. gen ElecSupport= (0.85*ElecPrice) if inrange((year),1984,1990)
+(17 missing values generated)
+
+. * In 1991 a price premium of 3.6 cEuro/kWh was introduced, which was in place until 2001. 
+. replace ElecSupport= (0.85*ElecPrice)+3.6 if inrange((year),1991,1999)
+(9 real changes made)
+
+. * Text: Production from wind turbines connected to the grid from 2000 to 2002 is sold in the market 
+. * [...] and producers receive a fixed feed in tarif of 5.8cEuro/kWh [...]  and a price premium of 0.3cEuro/kWh is paid to cover balancing costs 
+. replace ElecSupport=6.1 if inrange((year),2000,2002)
+(3 real changes made)
+
+. * Text: For wind turines connected to the grid in 2003 or 2004, the producers [...] and receive a price premium of max 1.3 cEuro/kWh until the turbin
+> e is 20 years old. The sum of the market price and price premium is limited to maximum 4.8cEuro/kWh and producers recieve a price premium of 0.3cEuro
+> /kWh to cover balancing costs 
+. replace ElecSupport=((ElecPrice)+1.6) if inrange((year),2003,2004)
+(2 real changes made)
+
+. replace ElecSupport=5.1 if inrange((year),2003,2004) & ElecSupport>5.1
+(1 real change made)
+
+. *--------------------------------
+. keep if inrange((year),1990,2006)
+(6 observations deleted)
+
+. drop ElecPrice
+
+. *--------------------------------
+. save "./TEMP/ElecSupport", replace 
+(file ./TEMP/ElecSupport.dta not found)
+file ./TEMP/ElecSupport.dta saved
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                    GIS municipal data on electricity grid (West or East Denmark)
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. import excel "./Data Sources and Panel.xls", sheet("Kommune_and_Gridtype") firstrow clear 
+(2 vars, 266 obs)
+
+. *-------------------------------------------
+. collapse(mean) Gridtype, by (FormerMunicipality)
+
+. save "./TEMP/Temp17", replace 
+(file ./TEMP/Temp17.dta not found)
+file ./TEMP/Temp17.dta saved
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                       Turbine Data computation & Amount of operating wind turbines 
+. *             (source : EnergiStyrelsen, The Danish Energy Agency & QGIS/DigDag) 
+. *-------------------------------------------------------------------------------
+. *------------------------------------------------------------------------------
+. import excel "./Data Sources and Panel.xls", sheet("Turbine_Master_Data_GIS") firstrow clear 
+(49 vars, 8,191 obs)
+
+. * data cleaning
+. drop  X_UTM32Eur Y_UTM32Eur // the coordinates were important for the GIS-Matching, but are not needed anymore  
+
+. * drop of false GIS matches (turbines that were not matched with a municipality due to incorrect X-Y coordinates) 
+. drop if navn =="false" 
+(0 observations deleted)
+
+. drop if navn =="water"
+(0 observations deleted)
+
+. drop if navn =="not defined "
+(1 observation deleted)
+
+. *-----------------------------
+. rename navn FormerMunicipality
+
+. replace FormerMunicipality=subinstr(FormerMunicipality,"Kommune","",.)
+(8,140 real changes made)
+
+. replace FormerMunicipality = subinstr(FormerMunicipality," ","",.)
+(8,190 real changes made)
+
+. *------------------------------------------
+. gen CommissionDate= date(Commission, "DMY")
+
+. drop Commission
+
+. gen Commission = yofd(CommissionDate)
+
+. drop CommissionDate
+
+. *------------------------------------------
+. gen DecommissionDate= date(Decommission, "MDY")
+(5,092 missing values generated)
+
+. drop Decommission
+
+. gen Decommission = yofd(DecommissionDate)
+(5,092 missing values generated)
+
+. drop DecommissionDate
+
+. *------------------------------------------
+. order FormerMunicipality Commission  Decommission 
+
+. *------------------------------------------
+. gen TEMP_ID=_n 
+
+. gen Turbine_ID=_n
+
+. reshape long _, i(TEMP_ID) j(year)
+(j = 1977 1978 1979 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2
+> 006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018)
+
+Data                               Wide   ->   Long
+-----------------------------------------------------------------------------
+Number of observations            8,190   ->   343,980     
+Number of variables                  49   ->   9           
+j variable (42 values)                    ->   year
+xij variables:
+                  _1977 _1978 ... _2018   ->   _
+-----------------------------------------------------------------------------
+
+. drop TEMP_ID 
+
+. rename _ ElectricityProduced
+
+. label var ElectricityProduced "in kilowatthour" 
+
+. *-------------------------------------------------------------------------------
+. * The names of Danish Municipalities include special letters (like ø, å, æ) which are not always well handled by GIS & Excel. 
+. * Depending on the data (source: Statistics Denmark, QGIS/DigDag) the spelling differs and the names hence have to be adjusted manually. 
+. qui { 
+
+. *-------------------------------------------------------------------------------
+. mmerge year using "./TEMP/Temp16", type(n:1)
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | n:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | <data in memory not named>
+                 obs | 343980
+                vars |      8
+          match vars | year  (not a key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp16.dta
+                 obs |     23
+                vars |      3
+          match vars | year  (key)
+---------------------+---------------------------------------------------------
+variable year does not uniquely identify observations in the master data
+result          file | <data in memory not named>
+                 obs | 343980
+                vars |     12  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge | 155610  obs only in master data                (code==1)
+                     | 188370  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+. mmerge FormerMunicipality using "./TEMP/Temp17", type(n:1)
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | n:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | <data in memory not named>
+                 obs | 343980
+                vars |     10
+          match vars | FormerMunicipality  (not a key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp17.dta
+                 obs |    266
+                vars |      2
+          match vars | FormerMunicipality  (key)
+  -------------------+---------------------------------------------------------
+         common vars | Gridtype
+---------------------+---------------------------------------------------------
+variable FormerMunicipality does not uniquely identify observations in the master data
+result          file | <data in memory not named>
+                 obs | 343997
+                vars |     12  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |     17  obs only in using data                 (code==2)
+                     | 343980  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+. save "./TEMP/TurbineMaster", replace
+(file ./TEMP/TurbineMaster.dta not found)
+file ./TEMP/TurbineMaster.dta saved
+
+. drop if _merge==2 // the municipalities without wind turbines (_merge==2) are dropped 
+(17 observations deleted)
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                                               Revenue Computation 
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. gen ElecRev_West=0
+
+. gen ElecRev_East=0
+
+. *-------------------
+. sort Turbine_ID year 
+
+. *---------------------------------
+. * Support before electricity market liberalisation: 85 % of the local retail price plus a price premium of 3.6 until the end of 2000 
+. *---------------------------------
+. // WEST //
+. replace ElecRev_West=(Price_West*0.85+3.6)*ElectricityProduced if inrange((Commission),1991,1999) & inrange((year),1991,2000) & Gridtype==2
+(11,708 real changes made)
+
+. // EAST // 
+. replace ElecRev_East=(Price_East*0.85+3.6)*ElectricityProduced if inrange((Commission),1991,1999) & inrange((year),1991,2000) & Gridtype==1
+(2,993 real changes made)
+
+. *---------------------------------
+. * Support after electricuty market liberalisation:
+. *---------------------------------
+. * Production from wind turbines connected to the grid from 2000 to 2002 is sold in the market 
+. * [...] and producers receive a fixed feed in tarif of 5.8cEuro/kWh for 22.000 FLH on land or sea
+. * After the first period, the producer must sell the power in the market and receives a price premium of maximum 1.3cEuro/kWh until the turbine is 20
+>  years old. 
+. * Plus a price premium of 0.3cEuro/kWh to cover for balancing costs  
+. *-------------------------------------------------------------------------------
+. // WEST //
+. replace ElecRev_West=(6.1)*ElectricityProduced if  inrange((Commission),2000,2002)  & Gridtype==2
+(17,236 real changes made)
+
+. // EAST // 
+. replace ElecRev_East=(6.1)*ElectricityProduced if  inrange((Commission),2000,2002)  & Gridtype==1 
+(3,648 real changes made)
+
+. *-------------------------------------------------------------------------------
+. gen Elec_Rev=0 
+
+. replace Elec_Rev=ElecRev_West if ElecRev_East==0
+(28,944 real changes made)
+
+. replace Elec_Rev=ElecRev_East if ElecRev_West==0 
+(6,641 real changes made)
+
+. *-------------------------------------------------------------------------------
+. * We define the revenues as new revenues in the year of commission 
+. gen New_Rev=0 
+
+. replace New_Rev= Elec_Rev if Commission==year 
+(3,753 real changes made)
+
+. label var New_Rev "New revenues from commissioned wind turbines, in eurocents"
+
+. * conversion from Eurocents to Euro 
+. replace New_Rev=New_Rev/(100)
+(3,753 real changes made)
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. gen Turbine_Built=0 
+
+. replace Turbine_Built=1 if Commission==year 
+(8,190 real changes made)
+
+. replace Turbine_Built=0 if Commission==. 
+(0 real changes made)
+
+. 
+. gen DecomTurbines=0 
+
+. replace DecomTurbines=1 if Decommission==year
+(3,094 real changes made)
+
+. replace DecomTurbines=0 if Decommission==. 
+(0 real changes made)
+
+. 
+. gen TurbineCapkW = CapacitykW if Commission==year 
+(335,790 missing values generated)
+
+. *------------------------------------------
+. keep FormerMunicipality TurbineCapkW Turbine_Built  DecomTurbines year New_Rev 
+
+. *------------------------------------------
+. collapse(sum) New_Rev TurbineCapkW Turbine_Built DecomTurbines , by (FormerMunicipality year)
+
+. label var New_Rev "New Revenues from commissioned wind turbines, in Euro"
+
+. label var TurbineCapkW "Capacity of newly commissioned wind turbines, in kW"  
+
+. label var Turbine_Built "No of newly commissioned wind turbines in that year" 
+
+. 
+. *------------------------------------------
+. egen TEMP_ID=group(FormerMunicipality)
+
+. xtset TEMP_ID year
+
+Panel variable: TEMP_ID (strongly balanced)
+ Time variable: year, 1977 to 2018
+         Delta: 1 unit
+
+. bysort FormerMunicipality (year) : gen cum_turbine_inst = sum(Turbine_Built)
+
+. label var cum_turbine_inst "cumulative number of installed turbines"
+
+. bysort FormerMunicipality (year) : gen cum_turbine_decom = sum(DecomTurbines)
+
+. label var cum_turbine_decom "cumulative number of decommissioned turbines"
+
+. gen Turbine_installed= (cum_turbine_inst-cum_turbine_decom) 
+
+. label var Turbine_installed "Total number of turbines in operation" 
+
+. *--------------------------------------------
+. sort TEMP_ID year
+
+. gen L1_Turbine_installed=L.Turbine_installed
+(249 missing values generated)
+
+. gen L2_Turbine_installed=L2.Turbine_installed
+(498 missing values generated)
+
+. gen L3_Turbine_installed=L3.Turbine_installed
+(747 missing values generated)
+
+. gen L4_Turbine_installed=L4.Turbine_installed
+(996 missing values generated)
+
+. gen L5_Turbine_installed=L5.Turbine_installed
+(1,245 missing values generated)
+
+. keep if inrange((year),1990,2006)
+(6,225 observations deleted)
+
+. drop TEMP_ID cum_turbine_inst cum_turbine_decom DecomTurbines 
+
+. *--------------------------------------------
+. save "./TEMP/Temp18", replace 
+(file ./TEMP/Temp18.dta not found)
+file ./TEMP/Temp18.dta saved
+
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. *               Merging of municipalities in Copenhagen County (see explanation at the beginning of the do file);
+. *       Merging of municipalities Marstal & Aeroskobing (see explanation at the beginning of the do file);
+. *       Merging of municipalities in Bornholm County (see explanation at the beginning of the do file)
+. *------------------------------------------------------------------------------*
+. *------------------------------------------------------------------------------*
+. * These three data sources have the disaggregated municipalities in Bornholm, but not Bornholm County. 
+. * We aggregate the five municipalities to Bornholm County, add it to the data and then remove the disaggregated municipalities.   
+. *------------------------------------------------------------------------------*
+. local DataSet "Temp9 Temp11 Temp18"
+
+. foreach VVV in `DataSet' {
+  2. *-------------------------------------
+. use "./TEMP/`VVV'", clear 
+  3. gen TEMP_I=_n
+  4. gen TEMP_II=_n
+  5. order year TEMP_I, first 
+  6. order TEMP_II FormerMunicipality, last
+  7. *----------------------------------
+. save "./TEMP/`VVV'", replace 
+  8. *-------------------------------------
+. * Compute Bornholm County (sum of the five disaggregated municipalities)
+. use "./TEMP/`VVV'", clear 
+  9. drop if FormerMunicipality!="Allinge-Gudhjem" & FormerMunicipality!="Hasle" & FormerMunicipality!="Nexø" & FormerMunicipality!="Rønne" & FormerMun
+> icipality!="Aakrikreby"
+ 10. collapse(sum) TEMP_I-TEMP_II, by(year) 
+ 11. gen FormerMunicipality="Bornholm" 
+ 12. save "./TEMP/Bornholm_`VVV'", replace 
+ 13. *------------------------------------
+. use "./TEMP/`VVV'", clear
+ 14. *-------------------------
+. *remove the disaggregated municipalities in Bornholm
+. drop if FormerMunicipality=="Bornholm" 
+ 15. drop if FormerMunicipality=="Allinge-Gudhjem"
+ 16. drop if FormerMunicipality=="Hasle"
+ 17. drop if FormerMunicipality=="Nexø"
+ 18. drop if FormerMunicipality=="Rønne"
+ 19. drop if FormerMunicipality=="Aakrikreby"
+ 20. *-------------------------
+. * add Bornhom Country to the data 
+. append using "./TEMP/Bornholm_`VVV'"
+ 21. *---------------------------
+. egen MUN_ID=group(FormerMunicipality)
+ 22. sum MUN_ID
+ 23. drop TEMP_I TEMP_II MUN_ID
+ 24. save "./TEMP/`VVV'", replace 
+ 25. }
+file ./TEMP/Temp9.dta saved
+(4,624 observations deleted)
+(file ./TEMP/Bornholm_Temp9.dta not found)
+file ./TEMP/Bornholm_Temp9.dta saved
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable AgrSurface was float, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |      4,624       136.5     78.5276          1        272
+file ./TEMP/Temp9.dta saved
+file ./TEMP/Temp11.dta saved
+(271 observations deleted)
+(file ./TEMP/Bornholm_Temp11.dta not found)
+file ./TEMP/Bornholm_Temp11.dta saved
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(1 observation deleted)
+(0 observations deleted)
+(0 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |        272       136.5    78.66384          1        272
+file ./TEMP/Temp11.dta saved
+file ./TEMP/Temp18.dta saved
+(4,216 observations deleted)
+(file ./TEMP/Bornholm_Temp18.dta not found)
+file ./TEMP/Bornholm_Temp18.dta saved
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(17 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable Turbine_installed was float, now double to accommodate using data's values)
+(variable L1_Turbine_installed was float, now double to accommodate using data's values)
+(variable L2_Turbine_installed was float, now double to accommodate using data's values)
+(variable L3_Turbine_installed was float, now double to accommodate using data's values)
+(variable L4_Turbine_installed was float, now double to accommodate using data's values)
+(variable L5_Turbine_installed was float, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |      4,233         125    71.88802          1        249
+file ./TEMP/Temp18.dta saved
+
+. *-------------------------------------------------------------------------------
+. * For each of the following temporary data sets, we merge the data for the municipalities that are in the county of Copenhagen (and later on, drop th
+> em from the analysis)
+. * Additionally, we merge the data corresponding to Ærøskøbing, Marstal and Ærø (see explanation at the beginning of the file).
+. local DataSet "Temp1 Temp2 Temp3 Temp4 Temp5 Temp6 Temp9 Temp11 Temp18"
+
+. foreach VVV in `DataSet' {
+  2. *-------------------------------------
+. use "./TEMP/`VVV'", clear 
+  3. gen TEMP_I=_n
+  4. gen TEMP_II=_n
+  5. order year TEMP_I, first 
+  6. order TEMP_II FormerMunicipality, last
+  7. *-------------------------------------
+. save "./TEMP/`VVV'", replace 
+  8. *-------------------------------------
+. *-------------------------------------
+. drop if FormerMunicipality!="Copenhagen" & FormerMunicipality!="Frederiksberg" & FormerMunicipality!="Albertslund" & FormerMunicipality!="Ballerup" &
+>  FormerMunicipality!="Brøndby" & FormerMunicipality!="Dragør" & FormerMunicipality!="Gentofte" & FormerMunicipality!="Gladsaxe"  & FormerMunicipality
+> !="Glostrup" & FormerMunicipality!="Herlev" & FormerMunicipality!="Hvidovre" & FormerMunicipality!="HøjeTaastrup" & FormerMunicipality!="Torslunde-Is
+> høj" & FormerMunicipality!="Ledøje-Smørum" & FormerMunicipality!="Lyngby-Taarbæk" & FormerMunicipality!="Rødovre" & FormerMunicipality!="Søllerød" & 
+> FormerMunicipality!="Tårnby" & FormerMunicipality!="Vallensbæk" & FormerMunicipality!="Værløse"
+  9. collapse(sum) TEMP_I-TEMP_II, by(year) 
+ 10. gen FormerMunicipality="Københavns"
+ 11. save "./TEMP/Copenhagen_`VVV'", replace 
+ 12. *---------------------------------
+. *---------------------------------
+. use "./TEMP/`VVV'", clear  
+ 13. drop if FormerMunicipality !="Ærøskøbing(-2005/2006)" & FormerMunicipality!="Marstal" & FormerMunicipality!="Ærø(2005/2006-)" 
+ 14. collapse(sum) TEMP_I-TEMP_II, by(year) 
+ 15. gen FormerMunicipality="Ærøskøbing" 
+ 16. save "./TEMP/Aeroskobing_`VVV'", replace 
+ 17. *--------------------------------------------------
+. *--------------------------------------------------
+. * Append the merged data to the rest of the dataset
+. *--------------------------------------------------
+. use "./TEMP/`VVV'", clear
+ 18. *-----------remove the municipalities included in Copenhagen county---------
+. drop if FormerMunicipality=="Copenhagen"
+ 19. drop if FormerMunicipality=="Frederiksberg" 
+ 20. drop if FormerMunicipality=="Albertslund" 
+ 21. drop if FormerMunicipality=="Ballerup"
+ 22. drop if FormerMunicipality=="Brøndby"
+ 23. drop if FormerMunicipality=="Dragør"
+ 24. drop if FormerMunicipality=="Gentofte"
+ 25. drop if FormerMunicipality=="Gladsaxe"
+ 26. drop if FormerMunicipality=="Glostrup"
+ 27. drop if FormerMunicipality=="Herlev"
+ 28. drop if FormerMunicipality=="Hvidovre"
+ 29. drop if FormerMunicipality=="HøjeTaastrup"
+ 30. drop if FormerMunicipality=="Torslunde-Ishøj"
+ 31. drop if FormerMunicipality=="Ledøje-Smørum"
+ 32. drop if FormerMunicipality=="Lyngby-Taarbæk"
+ 33. drop if FormerMunicipality=="Rødovre"
+ 34. drop if FormerMunicipality=="Søllerød"
+ 35. drop if FormerMunicipality=="Tårnby"
+ 36. drop if FormerMunicipality=="Vallensbæk"
+ 37. drop if FormerMunicipality=="Værløse"
+ 38. *remove the former disaggregated municipalities in Ærøskøbing/Marstal 
+. drop if FormerMunicipality=="Ærøskøbing(-2005/2006)"
+ 39. drop if FormerMunicipality=="Marstal" 
+ 40. drop if FormerMunicipality=="Ærø(2005/2006-)" 
+ 41. *remove the disaggregated municipalities in Bornholm
+. drop if FormerMunicipality=="Allinge-Gudhjem"
+ 42. drop if FormerMunicipality=="Hasle"
+ 43. drop if FormerMunicipality=="Nexø"
+ 44. drop if FormerMunicipality=="Rønne"
+ 45. drop if FormerMunicipality=="Aakrikreby"
+ 46. *----------------------------------
+. append using "./TEMP/Copenhagen_`VVV'"
+ 47. append using "./TEMP/Aeroskobing_`VVV'"
+ 48. *----------------------------------
+. egen MUN_ID=group(FormerMunicipality)
+ 49. sum MUN_ID
+ 50. drop TEMP_I TEMP_II
+ 51. save "./TEMP/`VVV'", replace 
+ 52. }
+file ./TEMP/Temp1.dta saved
+(4,369 observations deleted)
+(file ./TEMP/Copenhagen_Temp1.dta not found)
+file ./TEMP/Copenhagen_Temp1.dta saved
+(4,658 observations deleted)
+(file ./TEMP/Aeroskobing_Temp1.dta not found)
+file ./TEMP/Aeroskobing_Temp1.dta saved
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable Bdgt_Admin_T was long, now double to accommodate using data's values)
+(variable Bdgt_Edu_T was long, now double to accommodate using data's values)
+(variable Bdgt_Health_T was long, now double to accommodate using data's values)
+(variable Bdgt_HousingAmenities_T was long, now double to accommodate using data's values)
+(variable Bdgt_Total_T was long, now double to accommodate using data's values)
+(variable Bdgt_Public_Ut_T was long, now double to accommodate using data's values)
+(variable Bdgt_Traffic_T was long, now double to accommodate using data's values)
+(variable Bdgt_Admin_Ex was long, now double to accommodate using data's values)
+(variable Bdgt_Edu_Ex was long, now double to accommodate using data's values)
+(variable Bdgt_Health_Ex was long, now double to accommodate using data's values)
+(variable Bdgt_HousingAmenities_Ex was long, now double to accommodate using data's values)
+(variable Bdgt_Total_Ex was long, now double to accommodate using data's values)
+(variable Bdgt_Public_Ut_Ex was long, now double to accommodate using data's values)
+(variable Bdgt_Traffic_Ex was long, now double to accommodate using data's values)
+(variable Bdgt_Admin_Re was long, now double to accommodate using data's values)
+(variable Bdgt_Edu_Re was long, now double to accommodate using data's values)
+(variable Bdgt_Health_Re was long, now double to accommodate using data's values)
+(variable Bdgt_HousingAmenities_Re was long, now double to accommodate using data's values)
+(variable Bdgt_Total_Re was long, now double to accommodate using data's values)
+(variable Bdgt_Public_Ut_Re was long, now double to accommodate using data's values)
+(variable Bdgt_Traffic_Re was long, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |      4,267         126    72.46538          1        251
+file ./TEMP/Temp1.dta saved
+file ./TEMP/Temp2.dta saved
+(3,855 observations deleted)
+(file ./TEMP/Copenhagen_Temp2.dta not found)
+file ./TEMP/Copenhagen_Temp2.dta saved
+(4,110 observations deleted)
+(file ./TEMP/Aeroskobing_Temp2.dta not found)
+file ./TEMP/Aeroskobing_Temp2.dta saved
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(15 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable Inc_CrrntTrnsfrs was long, now double to accommodate using data's values)
+(variable Inc_CashBenefits was long, now double to accommodate using data's values)
+(variable Inc_Pnsns_CivilServant was long, now double to accommodate using data's values)
+(variable Inc_DailyBnfts_Tot was long, now double to accommodate using data's values)
+(variable Inc_Entrepr_Tot was long, now double to accommodate using data's values)
+(variable Inc_EarlyRtrmntPay was long, now double to accommodate using data's values)
+(variable Inc_EduGrant was long, now double to accommodate using data's values)
+(variable Inc_Entrepr was long, now double to accommodate using data's values)
+(variable Inc_Gratuities was long, now double to accommodate using data's values)
+(variable Inc_Dedctn was long, now double to accommodate using data's values)
+(variable Inc_OtherBnfts was long, now double to accommodate using data's values)
+(variable Inc_PnsnsOther was long, now double to accommodate using data's values)
+(variable Inc_Pnsns_Tot was long, now double to accommodate using data's values)
+(variable Inc_Pers_Tot was long, now double to accommodate using data's values)
+(variable Inc_Prmry_Tot was long, now double to accommodate using data's values)
+(variable Inc_Pnsns_ATP was long, now double to accommodate using data's values)
+(variable Inc_Remnrtn was long, now double to accommodate using data's values)
+(variable Inc_PnsnsSoc was long, now double to accommodate using data's values)
+(variable Inc_EarlyRtrmnt was long, now double to accommodate using data's values)
+(variable Inc_Pnsn_Supplmtn was long, now double to accommodate using data's values)
+(variable Inc_TmprlyLeave was long, now double to accommodate using data's values)
+(variable Inc_UnemplymtnBnfts was long, now double to accommodate using data's values)
+(variable Inc_Wages was long, now double to accommodate using data's values)
+(variable Inc_Wages_Tot was long, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |      3,765         126    72.46651          1        251
+file ./TEMP/Temp2.dta saved
+file ./TEMP/Temp3.dta saved
+(3,341 observations deleted)
+(file ./TEMP/Copenhagen_Temp3.dta not found)
+file ./TEMP/Copenhagen_Temp3.dta saved
+(3,562 observations deleted)
+(file ./TEMP/Aeroskobing_Temp3.dta not found)
+file ./TEMP/Aeroskobing_Temp3.dta saved
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(13 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable Emp_WP_109 was long, now double to accommodate using data's values)
+(variable Emp_WP_500 was long, now double to accommodate using data's values)
+(variable Emp_WP_1009 was long, now double to accommodate using data's values)
+(variable Emp_WP_1509 was long, now double to accommodate using data's values)
+(variable Emp_WP_1709 was long, now double to accommodate using data's values)
+(variable Emp_WP_2009 was long, now double to accommodate using data's values)
+(variable Emp_WP_2309 was long, now double to accommodate using data's values)
+(variable Emp_WP_2600 was long, now double to accommodate using data's values)
+(variable Emp_WP_2709 was long, now double to accommodate using data's values)
+(variable Emp_WP_3600 was long, now double to accommodate using data's values)
+(variable Emp_WP_4009 was long, now double to accommodate using data's values)
+(variable Emp_WP_4500 was long, now double to accommodate using data's values)
+(variable Emp_WP_5000 was long, now double to accommodate using data's values)
+(variable Emp_WP_5100 was long, now double to accommodate using data's values)
+(variable Emp_WP_5200 was long, now double to accommodate using data's values)
+(variable Emp_WP_5500 was long, now double to accommodate using data's values)
+(variable Emp_WP_6009 was long, now double to accommodate using data's values)
+(variable Emp_WP_6400 was long, now double to accommodate using data's values)
+(variable Emp_WP_6509 was long, now double to accommodate using data's values)
+(variable Emp_WP_7009 was long, now double to accommodate using data's values)
+(variable Emp_WP_7209 was long, now double to accommodate using data's values)
+(variable Emp_WP_7500 was long, now double to accommodate using data's values)
+(variable Emp_WP_8000 was long, now double to accommodate using data's values)
+(variable Emp_WP_8519 was long, now double to accommodate using data's values)
+(variable Emp_WP_8539 was long, now double to accommodate using data's values)
+(variable Emp_WP_9009 was long, now double to accommodate using data's values)
+(variable Emp_WP_9800 was long, now double to accommodate using data's values)
+(variable Emp_WP_Tot was float, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |      3,263         126    72.46799          1        251
+file ./TEMP/Temp3.dta saved
+file ./TEMP/Temp4.dta saved
+(3,598 observations deleted)
+(file ./TEMP/Copenhagen_Temp4.dta not found)
+file ./TEMP/Copenhagen_Temp4.dta saved
+(3,836 observations deleted)
+(file ./TEMP/Aeroskobing_Temp4.dta not found)
+file ./TEMP/Aeroskobing_Temp4.dta saved
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(14 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable Emp_109 was long, now double to accommodate using data's values)
+(variable Emp_500 was long, now double to accommodate using data's values)
+(variable Emp_1009 was long, now double to accommodate using data's values)
+(variable Emp_1509 was long, now double to accommodate using data's values)
+(variable Emp_1709 was long, now double to accommodate using data's values)
+(variable Emp_2009 was long, now double to accommodate using data's values)
+(variable Emp_2309 was long, now double to accommodate using data's values)
+(variable Emp_2600 was long, now double to accommodate using data's values)
+(variable Emp_2709 was long, now double to accommodate using data's values)
+(variable Emp_3600 was long, now double to accommodate using data's values)
+(variable Emp_4009 was long, now double to accommodate using data's values)
+(variable Emp_4500 was long, now double to accommodate using data's values)
+(variable Emp_5000 was long, now double to accommodate using data's values)
+(variable Emp_5100 was long, now double to accommodate using data's values)
+(variable Emp_5200 was long, now double to accommodate using data's values)
+(variable Emp_5500 was long, now double to accommodate using data's values)
+(variable Emp_6009 was long, now double to accommodate using data's values)
+(variable Emp_6400 was long, now double to accommodate using data's values)
+(variable Emp_6509 was long, now double to accommodate using data's values)
+(variable Emp_7009 was long, now double to accommodate using data's values)
+(variable Emp_7209 was long, now double to accommodate using data's values)
+(variable Emp_7500 was long, now double to accommodate using data's values)
+(variable Emp_8000 was long, now double to accommodate using data's values)
+(variable Emp_8519 was long, now double to accommodate using data's values)
+(variable Emp_8539 was long, now double to accommodate using data's values)
+(variable Emp_9009 was long, now double to accommodate using data's values)
+(variable Emp_9800 was long, now double to accommodate using data's values)
+(variable Emp_Tot was float, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |      3,514         126     72.4672          1        251
+file ./TEMP/Temp4.dta saved
+file ./TEMP/Temp5.dta saved
+(4,369 observations deleted)
+(file ./TEMP/Copenhagen_Temp5.dta not found)
+file ./TEMP/Copenhagen_Temp5.dta saved
+(4,658 observations deleted)
+(file ./TEMP/Aeroskobing_Temp5.dta not found)
+file ./TEMP/Aeroskobing_Temp5.dta saved
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable Unemplymnt was long, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |      4,267         126    72.46538          1        251
+file ./TEMP/Temp5.dta saved
+file ./TEMP/Temp6.dta saved
+(4,369 observations deleted)
+(file ./TEMP/Copenhagen_Temp6.dta not found)
+file ./TEMP/Copenhagen_Temp6.dta saved
+(4,658 observations deleted)
+(file ./TEMP/Aeroskobing_Temp6.dta not found)
+file ./TEMP/Aeroskobing_Temp6.dta saved
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable Population was long, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |      4,267         126    72.46538          1        251
+file ./TEMP/Temp6.dta saved
+file ./TEMP/Temp9.dta saved
+(4,284 observations deleted)
+(file ./TEMP/Copenhagen_Temp9.dta not found)
+file ./TEMP/Copenhagen_Temp9.dta saved
+(4,573 observations deleted)
+(file ./TEMP/Aeroskobing_Temp9.dta not found)
+file ./TEMP/Aeroskobing_Temp9.dta saved
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |      4,267         126    72.46538          1        251
+file ./TEMP/Temp9.dta saved
+file ./TEMP/Temp11.dta saved
+(252 observations deleted)
+(file ./TEMP/Copenhagen_Temp11.dta not found)
+file ./TEMP/Copenhagen_Temp11.dta saved
+(270 observations deleted)
+(file ./TEMP/Aeroskobing_Temp11.dta not found)
+file ./TEMP/Aeroskobing_Temp11.dta saved
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(1 observation deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |        252       126.5    72.89033          1        252
+file ./TEMP/Temp11.dta saved
+file ./TEMP/Temp18.dta saved
+(4,131 observations deleted)
+(file ./TEMP/Copenhagen_Temp18.dta not found)
+file ./TEMP/Copenhagen_Temp18.dta saved
+(4,199 observations deleted)
+(file ./TEMP/Aeroskobing_Temp18.dta not found)
+file ./TEMP/Aeroskobing_Temp18.dta saved
+(17 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(17 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(17 observations deleted)
+(17 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(variable TEMP_I was float, now double to accommodate using data's values)
+(variable TEMP_II was float, now double to accommodate using data's values)
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      MUN_ID |      4,131         122    70.15596          1        243
+file ./TEMP/Temp18.dta saved
+
+. *-------------------------------------------------------------------------------
+. * The names of the counties include special letters (like ø, å, æ) which are not always well handled by GIS & Excel. 
+. * Depending on the data source (Statistics Denmark, QGIS/DigDag) the spelling differs and the names hence have to be adjusted manually. 
+. *-------------------------------------------------------------------------------
+. use "./TEMP/CountyData",clear
+
+. *-------------------------------------------------------------------------------
+. *remove of the regions which are included in Copenhagen County  
+. drop if FormerMunicipality=="Frederiksberg" 
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Albertslund" 
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Ballerup"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Brøndby"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Dragør"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Gentofte"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Gladsaxe"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Glostrup"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Herlev"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Hvidovre"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="HøjeTaastrup"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Torslunde-Ishøj"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Ledøje-Smørum"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Lyngby-Taarbæk"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Rødovre"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Søllerød"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Tårnby"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Vallensbæk"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Værløse"
+(1 observation deleted)
+
+. *remove of the regions which are Ærø 
+. drop if FormerMunicipality=="Ærøskøbing(-2005/2006)"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Ærø(2005/2006-)" 
+(1 observation deleted)
+
+. *remove Bornholm and its subcategories 
+. drop if FormerMunicipality=="Bornholm" 
+(0 observations deleted)
+
+. drop if FormerMunicipality=="Allinge-Gudhjem"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Hasle"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Nexø"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Rønne"
+(1 observation deleted)
+
+. drop if FormerMunicipality=="Aakrikreby"
+(1 observation deleted)
+
+. *-------------------------------------------------------------------------------
+. * Editing of the names of municipalities
+. replace FormerMunicipality ="Københavns" if FormerMunicipality=="Copenhagen"
+(1 real change made)
+
+. *-----------------------
+. replace FormerMunicipality ="Ærøskøbing" if FormerMunicipality=="Marstal"
+(1 real change made)
+
+. *-----------------------
+. qui DataCleaning // execute predefined data cleaning program 
+
+. save "./TEMP/Temp10", replace
+(file ./TEMP/Temp10.dta not found)
+file ./TEMP/Temp10.dta saved
+
+. *-------------------------------------------------------------------------------
+. * adjustment to Temp11 (average wind density in 50m): we assume that the densitiy is constant over time and thus the same for each years. 
+. use "./TEMP/Temp11", clear
+
+. drop year 
+
+. save "./TEMP/Temp11", replace
+file ./TEMP/Temp11.dta saved
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                                                               MERGE ALL SEPARATE DATA SETS 
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. * Overview of temporary used datasets :
+. * Temp1 - Temp 1_1 - 1_3 = Budget data (source: Statistics Denmark)
+. * Temp2 = Income data (source: Statistics Denmark) 
+. * Temp3 = Employment data, aggregated by workplace (source: Statistics Denmark) 
+. * Temp4 = Employment data, aggregated by residence (source: Statistics Denmark) 
+. * Temp5 = Unemployment data (source: Statistics Denmark)  
+. * Temp6 = Population data (source: Statistics Denmark) 
+. * Temp7 = Agricultural surface data from the census 1999 (source: Statistics Denmark) 
+. * Temp8 = Agricultural surface data on county level (source: Statistics Denmark) 
+. * Temp9 = Agricultural surface data on municipal level(combination of Temp8 + Temp9) 
+. * Temp10 = County data with minor edits (source: Statistics Denmark)  
+. * Temp11 = Average wind density (source: Global Wind Atlas & QGIS/DigDag) 
+. * Temp12 = Electricity Price 1985-1999 (source: Danish Energy Agency) 
+. * Temp13 = Hourly electricity price 2000-2010 (source: Danish Energy Agency) 
+. * Temp14 = Hourly wind production and electricity price 2000-2010 (source: Danish Energy Agency) 
+. * Temp15 = Yearly sum wind production 2000-2010 (source: Danish Energy Agency) 
+. * Temp16 = Electricity price 1985-2010 (source: Danish Energy Agency) 
+. * Temp17 = Municipalitie's corresponding electricity grid (source : QGIS/DigDag) 
+. * Temp18 = New Revenues and lagged number of turbine installations (source: DigDag and Danish Energy Agency)
+. * ElecSupport: Yearly electricity support in cEuro/kWh 1990-2006 (source: EnergiStyrelsen)
+. * TurbineMaster: Overview of the turbine data used to calculate the new revenues (source: EnergiStyrelsen, QGIS/DigDag and The Danish Energy Agency)
+. * CountyData: Overview of the municipalities and the corresponding county (source: Statistics Denmark) 
+. *-------------------------------------------------------------------------------
+. use "./TEMP/Temp1", clear
+
+. local DataSet "Temp2 Temp3 Temp4 Temp5 Temp6 Temp9 "
+
+. *---------------------------
+. *---------------------------
+. foreach VVV in `DataSet' {
+  2. mmerge FormerMunicipality year using "./TEMP/`VVV'", type(1:1)
+  3. sort _merge FormerMunicipality year
+  4. drop _merge
+  5. } 
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | 1:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |     24
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp2.dta
+                 obs |   3765
+                vars |     27
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+         common vars | MUN_ID
+---------------------+---------------------------------------------------------
+result          file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |     50  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |    502  obs only in master data                (code==1)
+                     |   3765  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | 1:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |     48
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp3.dta
+                 obs |   3263
+                vars |     31
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+         common vars | MUN_ID
+---------------------+---------------------------------------------------------
+result          file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |     78  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |   1004  obs only in master data                (code==1)
+                     |   3263  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | 1:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |     76
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp4.dta
+                 obs |   3514
+                vars |     31
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+         common vars | MUN_ID
+---------------------+---------------------------------------------------------
+result          file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |    106  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |    753  obs only in master data                (code==1)
+                     |   3514  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | 1:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |    104
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp5.dta
+                 obs |   4267
+                vars |      4
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+         common vars | MUN_ID
+---------------------+---------------------------------------------------------
+result          file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |    107  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |   4267  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | 1:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |    105
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp6.dta
+                 obs |   4267
+                vars |      4
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+         common vars | MUN_ID
+---------------------+---------------------------------------------------------
+result          file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |    108  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |   4267  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | 1:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |    106
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp9.dta
+                 obs |   4267
+                vars |      4
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+         common vars | MUN_ID
+---------------------+---------------------------------------------------------
+result          file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |    109  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |   4267  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+. *-------------------------- 
+. mmerge FormerMunicipality using "./TEMP/Temp10", type(n:1)
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | n:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |    107
+          match vars | FormerMunicipality  (not a key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp10.dta
+                 obs |    251
+                vars |      2
+          match vars | FormerMunicipality  (key)
+---------------------+---------------------------------------------------------
+variable FormerMunicipality does not uniquely identify observations in the master data
+result          file | ./TEMP/Temp1.dta
+                 obs |   4267
+                vars |    110  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |   4267  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+. drop _merge
+
+. *-------------------------
+. joinby FormerMunicipality using "./TEMP/Temp11", unmatched(both)
+
+. keep if _merge==3 // Christiansø is not used in the final panel 
+(1 observation deleted)
+
+. *---------------------------
+. mmerge FormerMunicipality year using "./TEMP/Temp18", type(1:1)
+
+-------------------------------------------------------------------------------
+merge specs          |
+       matching type | 1:1
+  mv's on match vars | none
+  unmatched obs from | both
+---------------------+---------------------------------------------------------
+  master        file | <data in memory not named>
+                 obs |   4267
+                vars |    109
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+  using         file | ./TEMP/Temp18.dta
+                 obs |   4131
+                vars |     12
+          match vars | FormerMunicipality year  (key)
+  -------------------+---------------------------------------------------------
+         common vars | MUN_ID
+---------------------+---------------------------------------------------------
+result          file | <data in memory not named>
+                 obs |   4267
+                vars |    120  (including _merge)
+         ------------+---------------------------------------------------------
+              _merge |    136  obs only in master data                (code==1)
+                     |   4131  obs both in master and using data      (code==3)
+-------------------------------------------------------------------------------
+
+. * some municipalities have no wind turbine installations in the time period (_merge==1) 
+. *---------------------------
+. drop _merge MUN_ID
+
+. egen MUN_ID=group(FormerMunicipality)
+
+. xtset MUN_ID year
+
+Panel variable: MUN_ID (strongly balanced)
+ Time variable: year, 1990 to 2006
+         Delta: 1 unit
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                                               GENERATION OF CONTROL VARIABLES 
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. gen UnemplyRate=Unemplymnt/(Unemplymnt+Emp_Tot)
+(753 missing values generated)
+
+. gen L2_AgrSurface=L2.AgrSurface
+(502 missing values generated)
+
+. gen L4_AgrSurface=L4.AgrSurface
+(1,004 missing values generated)
+
+. 
+. gen ElecSupPol=0 
+
+. replace ElecSupPol= 1 if inrange((year),1991,1999) 
+(2,259 real changes made)
+
+. replace ElecSupPol= 2 if inrange((year),2000,2002) 
+(753 real changes made)
+
+. replace ElecSupPol= 3 if inrange((year),2003,2004) 
+(502 real changes made)
+
+. replace ElecSupPol= 4 if inrange((year),2005,2006) 
+(502 real changes made)
+
+. 
+. joinby year using "./TEMP/ElecSupport"
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                                               Budget Category Edit
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. * Budget Revenue Category 
+. * We define the budgetary revnenues in negative values 
+. local Bud "Bdgt_Admin_Re Bdgt_Edu_Re Bdgt_Health_Re Bdgt_HousingAmenities_Re Bdgt_Total_Re Bdgt_Public_Ut_Re Bdgt_Traffic_Re"
+
+. foreach VVV in `Bud' {
+  2. replace `VVV'=`VVV'*(-1)
+  3. }
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(3,982 real changes made)
+(3,621 real changes made)
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                                               DANISH KRONE TO EURO CONVERSION 
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. * The conversion rate is set to 1 € = 7,46038 DK
+. * The current unit of the following (listed in "local vars") is 1000 DK
+. local vars "Bdgt_Admin_T Bdgt_Edu_T Bdgt_Health_T Bdgt_HousingAmenities_T Bdgt_Total_T Bdgt_Public_Ut_T Bdgt_Traffic_T Bdgt_Admin_Ex Bdgt_Edu_Ex Bdgt
+> _Health_Ex Bdgt_HousingAmenities_Ex Bdgt_Total_Ex Bdgt_Public_Ut_Ex Bdgt_Traffic_Ex Bdgt_Admin_Re Bdgt_Edu_Re Bdgt_Health_Re Bdgt_HousingAmenities_Re
+>  Bdgt_Total_Re Bdgt_Public_Ut_Re Bdgt_Traffic_Re Inc_Pers_Tot Inc_Prmry_Tot Inc_CrrntTrnsfrs Inc_Entrepr_Tot Inc_Entrepr Inc_Wages Inc_Wages_Tot Inc_
+> Pnsns_Tot Inc_CashBenefits Inc_Pnsns_CivilServant Inc_DailyBnfts_Tot Inc_EarlyRtrmntPay Inc_EduGrant Inc_Gratuities Inc_Dedctn Inc_OtherBnfts Inc_Pns
+> nsOther Inc_Pnsns_ATP Inc_Remnrtn Inc_PnsnsSoc Inc_EarlyRtrmnt Inc_Pnsn_Supplmtn Inc_TmprlyLeave Inc_UnemplymtnBnfts" 
+
+. *-----------------------
+. foreach VVV in `vars' {
+  2. replace `VVV'=`VVV'/(7.46038)
+  3. }
+variable Bdgt_Admin_T was long now double
+(4,267 real changes made)
+variable Bdgt_Edu_T was long now double
+(4,267 real changes made)
+variable Bdgt_Health_T was long now double
+(4,267 real changes made)
+variable Bdgt_HousingAmenities_T was long now double
+(4,267 real changes made)
+variable Bdgt_Total_T was long now double
+(4,267 real changes made)
+variable Bdgt_Public_Ut_T was long now double
+(4,255 real changes made)
+variable Bdgt_Traffic_T was long now double
+(4,267 real changes made)
+variable Bdgt_Admin_Ex was long now double
+(4,267 real changes made)
+variable Bdgt_Edu_Ex was long now double
+(4,267 real changes made)
+variable Bdgt_Health_Ex was long now double
+(4,267 real changes made)
+variable Bdgt_HousingAmenities_Ex was long now double
+(4,267 real changes made)
+variable Bdgt_Total_Ex was long now double
+(4,267 real changes made)
+variable Bdgt_Public_Ut_Ex was long now double
+(4,259 real changes made)
+variable Bdgt_Traffic_Ex was long now double
+(4,267 real changes made)
+variable Bdgt_Admin_Re was long now double
+(4,267 real changes made)
+variable Bdgt_Edu_Re was long now double
+(4,267 real changes made)
+variable Bdgt_Health_Re was long now double
+(4,267 real changes made)
+variable Bdgt_HousingAmenities_Re was long now double
+(4,267 real changes made)
+variable Bdgt_Total_Re was long now double
+(4,267 real changes made)
+variable Bdgt_Public_Ut_Re was long now double
+(3,982 real changes made)
+variable Bdgt_Traffic_Re was long now double
+(3,621 real changes made)
+variable Inc_Pers_Tot was long now double
+(3,765 real changes made)
+variable Inc_Prmry_Tot was long now double
+(3,765 real changes made)
+variable Inc_CrrntTrnsfrs was long now double
+(3,765 real changes made)
+variable Inc_Entrepr_Tot was long now double
+(3,765 real changes made)
+variable Inc_Entrepr was long now double
+(3,012 real changes made)
+variable Inc_Wages was long now double
+(2,761 real changes made)
+variable Inc_Wages_Tot was long now double
+(3,765 real changes made)
+variable Inc_Pnsns_Tot was long now double
+(3,765 real changes made)
+variable Inc_CashBenefits was long now double
+(3,765 real changes made)
+variable Inc_Pnsns_CivilServant was long now double
+(1,004 real changes made)
+variable Inc_DailyBnfts_Tot was long now double
+(3,765 real changes made)
+variable Inc_EarlyRtrmntPay was long now double
+(3,765 real changes made)
+variable Inc_EduGrant was long now double
+(3,765 real changes made)
+variable Inc_Gratuities was long now double
+(1,757 real changes made)
+variable Inc_Dedctn was int now float
+(2,303 real changes made)
+variable Inc_OtherBnfts was long now double
+(3,765 real changes made)
+variable Inc_PnsnsOther was long now double
+(3,765 real changes made)
+variable Inc_Pnsns_ATP was long now double
+(3,765 real changes made)
+variable Inc_Remnrtn was long now double
+(2,761 real changes made)
+variable Inc_PnsnsSoc was long now double
+(3,765 real changes made)
+variable Inc_EarlyRtrmnt was long now double
+(2,761 real changes made)
+variable Inc_Pnsn_Supplmtn was long now double
+(3,765 real changes made)
+variable Inc_TmprlyLeave was long now double
+(2,760 real changes made)
+variable Inc_UnemplymtnBnfts was long now double
+(3,765 real changes made)
+
+. * Conversion from 1.000 Euros to Euros 
+. foreach VVV in `vars' {
+  2. replace `VVV'=`VVV'*(1000)
+  3. }
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,255 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,259 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(4,267 real changes made)
+(3,982 real changes made)
+(3,621 real changes made)
+(3,765 real changes made)
+(3,765 real changes made)
+(3,765 real changes made)
+(3,765 real changes made)
+(3,012 real changes made)
+(2,761 real changes made)
+(3,765 real changes made)
+(3,765 real changes made)
+(3,765 real changes made)
+(1,004 real changes made)
+(3,765 real changes made)
+(3,765 real changes made)
+(3,765 real changes made)
+(1,757 real changes made)
+(2,303 real changes made)
+(3,765 real changes made)
+(3,765 real changes made)
+(3,765 real changes made)
+(2,761 real changes made)
+(3,765 real changes made)
+(2,761 real changes made)
+(3,765 real changes made)
+(2,760 real changes made)
+(3,765 real changes made)
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                               PER CAPITA CONVERSION OF THE VARIABLES OF INTEREST
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. keep if inrange((year),1993,2006) 
+(753 observations deleted)
+
+. * We compute the per capita values by dividing all vars with the lagged number of total employment. The employment data is available for the years 19
+> 93-2006 
+. local perCapita "Bdgt_Admin_T Bdgt_Edu_T Bdgt_Health_T Bdgt_HousingAmenities_T Bdgt_Total_T Bdgt_Public_Ut_T Bdgt_Traffic_T Bdgt_Admin_Ex Bdgt_Edu_Ex
+>  Bdgt_Health_Ex Bdgt_HousingAmenities_Ex Bdgt_Total_Ex Bdgt_Public_Ut_Ex Bdgt_Traffic_Ex Bdgt_Admin_Re Bdgt_Edu_Re Bdgt_Health_Re Bdgt_HousingAmeniti
+> es_Re Bdgt_Total_Re Bdgt_Public_Ut_Re Bdgt_Traffic_Re Inc_Pers_Tot Inc_Prmry_Tot Inc_CrrntTrnsfrs Inc_Entrepr_Tot Inc_Entrepr Inc_Wages Inc_Wages_Tot
+>  Inc_Pnsns_Tot Inc_CashBenefits Inc_Pnsns_CivilServant Inc_DailyBnfts_Tot Inc_EarlyRtrmntPay Inc_EduGrant Inc_Gratuities Inc_Dedctn Inc_OtherBnfts In
+> c_PnsnsOther Inc_Pnsns_ATP Inc_Remnrtn Inc_PnsnsSoc Inc_EarlyRtrmnt Inc_Pnsn_Supplmtn Inc_TmprlyLeave Inc_UnemplymtnBnfts Emp_WP_109 Emp_WP_500 Emp_W
+> P_1009 Emp_WP_1509 Emp_WP_1709 Emp_WP_2009 Emp_WP_2309 Emp_WP_2600 Emp_WP_2709 Emp_WP_3600 Emp_WP_4009 Emp_WP_4500 Emp_WP_5000 Emp_WP_5100 Emp_WP_520
+> 0 Emp_WP_5500 Emp_WP_6009 Emp_WP_6400 Emp_WP_6509 Emp_WP_7009 Emp_WP_7209 Emp_WP_7500 Emp_WP_8000 Emp_WP_8519 Emp_WP_8539 Emp_WP_9009 Emp_WP_9800 Emp
+> _WP_Tot Emp_109 Emp_500 Emp_1009 Emp_1509 Emp_1709 Emp_2009 Emp_2309 Emp_2600 Emp_2709 Emp_3600 Emp_4009 Emp_4500 Emp_5000 Emp_5100 Emp_5200 Emp_5500
+>  Emp_6009 Emp_6400 Emp_6509 Emp_7009 Emp_7209 Emp_7500 Emp_8000 Emp_8519 Emp_8539 Emp_9009 Emp_9800 Emp_Tot Unemplymnt UnemplyRate Population AgrSurf
+> ace AVG_WindDensity New_Rev" 
+
+. *----------------------------
+. foreach VVV in `perCapita' {
+  2. gen `VVV'_PC=`VVV'/L.Emp_Tot
+  3. }
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(502 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(251 missing values generated)
+(355 missing values generated)
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *                                                               Remaining edits
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. * Absence of new revenues = zero new revenues
+. local vars "New_Rev  "
+
+. foreach VVV in `vars' {
+  2. replace `VVV'=0 if `VVV'==. & inrange((year),1993,2002)
+  3. replace `VVV'=. if inrange((year),2003,2006)
+  4. }
+(80 real changes made)
+(972 real changes made, 972 to missing)
+
+. *----------------------
+. local vars "New_Rev_PC "
+
+. foreach VVV in `vars' {
+  2. replace `VVV'=0 if `VVV'==. & inrange((year),1993,2002)
+  3. replace `VVV'=. if inrange((year),2003,2006)
+  4. replace `VVV'=. if year==1993
+  5. 
+. }
+(323 real changes made)
+(972 real changes made, 972 to missing)
+(251 real changes made, 251 to missing)
+
+. * Absence of new turbines = zero new turbines 
+. *--------------------------
+. local vars "TurbineCapkW Turbine_Built Turbine_installed L1_Turbine_installed L2_Turbine_installed L3_Turbine_installed L4_Turbine_installed L5_Turbi
+> ne_installed"
+
+. foreach VVV in `vars' {
+  2. replace `VVV'=0 if `VVV'==.
+  3. }
+(112 real changes made)
+(112 real changes made)
+(112 real changes made)
+(112 real changes made)
+(112 real changes made)
+(112 real changes made)
+(112 real changes made)
+(112 real changes made)
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. * Final Label 
+. * Municipal Budget Categories 
+. label var Bdgt_Admin_T "Budget, Total, Administration, in Euros" 
+
+. label var Bdgt_Edu_T "Budget, Total, Education and culture, in Euros"
+
+. label var Bdgt_Health_T "Budget, Total, Health care activities, in Euros" 
+
+. label var Bdgt_HousingAmenities_T "Budget, Total, Housing and community amenities, in Euros" 
+
+. label var Bdgt_Total_T "Budget, Total, Total, in Euros" 
+
+. label var Bdgt_Public_Ut_T "Budget, Total, Public utilities, etc., in Euros" 
+
+. label var Bdgt_Traffic_T "Budget, Total, Traffic and infrastructure, in Euros" 
+
+. *------------------------------
+. label var Bdgt_Admin_Ex "Budget, Expenditure, Administration, in Euros" 
+
+. label var Bdgt_Edu_Ex "Budget, Expenditure, Education and culture, in Euros"
+
+. label var Bdgt_Health_Ex "Budget, Expenditure, Health care activities, in Euros" 
+
+. label var Bdgt_HousingAmenities_Ex "Budget, Expenditure, Housing and community amenities, in Euros" 
+
+. label var Bdgt_Total_Ex "Budget, Expenditure, Total, in Euros" 
+
+. label var Bdgt_Public_Ut_Ex "Budget, Expenditure, Public utilities, etc., in Euros" 
+
+. label var Bdgt_Traffic_Ex "Budget, Expenditure, Traffic and infrastructure, in Euros" 
+
+. *------------------------------
+. label var Bdgt_Admin_Re "Budget, Revenue, Administration, in Euros" 
+
+. label var Bdgt_Edu_Re "Budget, Revenue, Education and culture, in Euros"
+
+. label var Bdgt_Health_Re "Budget, Revenue, Health care activities, in Euros" 
+
+. label var Bdgt_HousingAmenities_Re "Budget, Revenue, Housing and community amenities, in Euros" 
+
+. label var Bdgt_Total_Re "Budget, Revenue, Total, in Euros" 
+
+. label var Bdgt_Public_Ut_Re "Budget, Revenue, Public utilities, etc., in Euros" 
+
+. label var Bdgt_Traffic_Re "Budget, Revenue, Traffic and infrastructure, in Euros"  
+
+. *-------------------------------------------------------------------------------
+. * Income Categories 
+. label var Inc_CrrntTrnsfrs "Current transfers, etc., total, in Euros"
+
+. label var Inc_CashBenefits "Cash benefits, in Euros"
+
+. label var Inc_Pnsns_CivilServant "Civil servant pensions, in Euros, documented from 2002 onwards"
+
+. label var Inc_DailyBnfts_Tot "Daily benefits and etc., total, in Euros" 
+
+. label var Inc_Entrepr_Tot "Entrepreneurial income, total, in Euros" 
+
+. label var Inc_EarlyRtrmntPay "Early retirement pay, in Euros" 
+
+. label var Inc_EduGrant "Education grants, in Euros" 
+
+. label var Inc_EduGrant "Education grants, in Euros" 
+
+. label var Inc_Entrepr "Entrepreneurial income, in Euros" 
+
+. label var Inc_Gratuities "Gratuities, in Euros" 
+
+. label var Inc_Dedctn "Income/Deduction, assisting spouse, in Euros" 
+
+. label var Inc_OtherBnfts "Ofther benefits, in Euros" 
+
+. label var Inc_PnsnsOther "Other pensions, in Euros" 
+
+. label var Inc_Pnsns_Tot "Pensions, etc., total, in Euros" 
+
+. label var Inc_Pers_Tot"Personal income, total, in Euros" 
+
+. label var Inc_Prmry_Tot "Primary income, total, in Euros" 
+
+. label var Inc_Pnsns_ATP "Pensions from ATP, in Euros" 
+
+. label var Inc_Remnrtn "Remuneration, in Euros" 
+
+. label var Inc_PnsnsSoc "Social pensions, in Euros" 
+
+. label var Inc_EarlyRtrmnt "Special early retirement pay, in Euros" 
+
+. label var Inc_Pnsn_Supplmtn "Supplements to social pensions, in Euros" 
+
+. label var Inc_TmprlyLeave "Temporarely leave benefits, in Euros" 
+
+. label var Inc_UnemplymtnBnfts "Unemployment benefits and the like, in Euros" 
+
+. label var Inc_Wages "Wages, in Euros" 
+
+. label var Inc_Wages_Tot "Wages and salaries, total, in Euros" 
+
+. *-------------------------------------------------------------------------------
+. *------------------------- per capita ------------------------------------------
+. label var New_Rev_PC "New Revenues per capita, in Euros" 
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. label var Bdgt_Admin_T_PC "Budget per Capita , Total, Administration, in Euros" 
+
+. label var Bdgt_Edu_T_PC "Budget per Capita , Total, Education and culture, in Euros"
+
+. label var Bdgt_Health_T_PC "Budget per Capita , Total, Health care activities, in Euros" 
+
+. label var Bdgt_HousingAmenities_T_PC "Budget per Capita , Total, Housing and community amenities, in Euros" 
+
+. label var Bdgt_Total_T_PC "Budget per Capita , Total, Total, in Euros" 
+
+. label var Bdgt_Public_Ut_T_PC "Budget per Capita , Total, Public utilities, etc., in Euros" 
+
+. label var Bdgt_Traffic_T_PC "Budget per Capita , Total, Traffic and infrastructure, in Euros" 
+
+. *------------------------------
+. label var Bdgt_Admin_Ex_PC "Budget per Capita , Expenditure, Administration, in Euros" 
+
+. label var Bdgt_Edu_Ex_PC "Budget per Capita , Expenditure, Education and culture, in Euros"
+
+. label var Bdgt_Health_Ex_PC "Budget per Capita , Expenditure, Health care activities, in Euros" 
+
+. label var Bdgt_HousingAmenities_Ex_PC "Budget per Capita , Expenditure, Housing and community amenities, in Euros" 
+
+. label var Bdgt_Total_Ex_PC "Budget per Capita , Expenditure, Total, in Euros" 
+
+. label var Bdgt_Public_Ut_Ex_PC "Budget per Capita , Expenditure, Public utilities, etc., in Euros" 
+
+. label var Bdgt_Traffic_Ex_PC "Budget per Capita , Expenditure, Traffic and infrastructure, in Euros" 
+
+. *------------------------------
+. label var Bdgt_Admin_Re_PC "Budget per Capita , Revenue, Administration, in Euros" 
+
+. label var Bdgt_Edu_Re_PC "Budget per Capita , Revenue, Education and culture, in Euros"
+
+. label var Bdgt_Health_Re_PC "Budget per Capita , Revenue, Health care activities, in Euros" 
+
+. label var Bdgt_HousingAmenities_Re_PC "Budget per Capita , Revenue, Housing and community amenities, in Euros" 
+
+. label var Bdgt_Total_Re_PC "Budget per Capita , Revenue, Total, in Euros" 
+
+. label var Bdgt_Public_Ut_Re_PC "Budget per Capita , Revenue, Public utilities, etc., in Euros" 
+
+. label var Bdgt_Traffic_Re_PC "Budget per Capita , Revenue, Traffic and infrastructure, in Euros" 
+
+. *-------------------------------------------------------------------------------
+. label var Inc_CrrntTrnsfrs_PC "Current transfers, etc. per capita, total, in Euros"
+
+. label var Inc_CashBenefits_PC "Cash benefits per capita, in Euros"
+
+. label var Inc_Pnsns_CivilServant_PC "Civil servant pensions per capita, in Euros, documented from 2002 onwards"
+
+. label var Inc_DailyBnfts_Tot_PC "Daily benefits and etc., total per capita, in Euros" 
+
+. label var Inc_Entrepr_Tot_PC "Entrepreneurial income, total per capita, in Euros" 
+
+. label var Inc_EarlyRtrmntPay_PC "Early retirement pay per capita, in Euros" 
+
+. label var Inc_EduGrant_PC "Education grants per capita, in Euros" 
+
+. label var Inc_EduGrant_PC "Education grants per capita, in Euros" 
+
+. label var Inc_Entrepr_PC "Entrepreneurial income per capita, in Euros" 
+
+. label var Inc_Gratuities_PC "Gratuities per capita, in Euros" 
+
+. label var Inc_Dedctn_PC "Income/Deduction, assisting spouse per capita, in Euros" 
+
+. label var Inc_OtherBnfts_PC "Ofther benefits per capita, in Euros" 
+
+. label var Inc_PnsnsOther_PC "Other pensions per capita, in Euros" 
+
+. label var Inc_Pnsns_Tot_PC "Pensions, etc., total per capita, in Euros" 
+
+. label var Inc_Pers_Tot_PC "Personal income, total per capita, in Euros" 
+
+. label var Inc_Prmry_Tot_PC "Primary income, total per capita, in Euros" 
+
+. label var Inc_Pnsns_ATP_PC "Pensions from ATP per capita, in Euros" 
+
+. label var Inc_Remnrtn_PC "Remuneration per capita, in Euros" 
+
+. label var Inc_PnsnsSoc_PC "Social pensions per capita, in Euros" 
+
+. label var Inc_EarlyRtrmnt_PC "Special early retirement pay per capita, in Euros" 
+
+. label var Inc_Pnsn_Supplmtn_PC "Supplements to social pensions per capita, in Euros" 
+
+. label var Inc_TmprlyLeave_PC "Temporarely leave benefits per capita, in Euros" 
+
+. label var Inc_UnemplymtnBnfts_PC "Unemployment benefits and the like per capita, in Euros" 
+
+. label var Inc_Wages_PC "Wages per capita, in Euros" 
+
+. label var Inc_Wages_Tot_PC "Wages and salaries, total per capita, in Euros" 
+
+. *------------------------------------------------------------------------------- 
+. order FormerMunicipality MUN_ID County year Bdgt_Admin_T Bdgt_Edu_T Bdgt_Health_T Bdgt_HousingAmenities_T Bdgt_Total_T Bdgt_Public_Ut_T Bdgt_Traffic_
+> T Bdgt_Admin_Ex Bdgt_Edu_Ex Bdgt_Health_Ex Bdgt_HousingAmenities_Ex Bdgt_Total_Ex Bdgt_Public_Ut_Ex Bdgt_Traffic_Ex Bdgt_Admin_Re Bdgt_Edu_Re Bdgt_He
+> alth_Re Bdgt_HousingAmenities_Re Bdgt_Total_Re Bdgt_Public_Ut_Re Bdgt_Traffic_Re Inc_Pers_Tot Inc_Prmry_Tot Inc_CrrntTrnsfrs Inc_Entrepr_Tot Inc_Entr
+> epr Inc_Wages Inc_Wages_Tot Inc_Pnsns_Tot
+
+. *-------------------------------------------------------------------------------
+. save "./FinalPanel", replace 
+file ./FinalPanel.dta saved
+
+. save "../Estimation/FinalPanel.dta",replace
+(file ../Estimation/FinalPanel.dta not found)
+file ../Estimation/FinalPanel.dta could not be opened
+r(603);
+
+end of do-file
+
+r(603);
+
+. do "C:\Users\nikla\AppData\Local\Temp\STD1700_000000.tmp"
+
+. save "../Estimations/FinalPanel.dta",replace
+file ../Estimations/FinalPanel.dta saved
+
+. *-------------------------------------------------------------------------------
+. *                                               ERASE TEMPORARY DATA SETS 
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. foreach num of numlist  1/18 {
+  2. erase "./TEMP/Temp`num'.dta"
+  3. }
+
+. erase "./TEMP/Temp1_1.dta"
+
+. erase "./TEMP/Temp1_2.dta"
+
+. erase "./TEMP/Temp1_3.dta" 
+
+. *----------------------------
+. foreach num of numlist  1 2 3 4 5 6 9 11 18 {
+  2. erase "./TEMP/Copenhagen_Temp`num'.dta"
+  3. erase "./TEMP/Aeroskobing_Temp`num'.dta"
+  4. }
+
+. foreach num of numlist  9 11 18 {
+  2. erase "./TEMP/Bornholm_Temp`num'.dta"
+  3. } 
+
+. erase "./TEMP/ElecSupport.dta"
+
+. erase "./TEMP/TurbineMaster.dta"
+
+. erase "./TEMP/CountyData.dta"
+
+. *-------------------------------------------------------------------------------
+. *-------------------------------------------------------------------------------
+. *-----------------------------
+. log close 
+      name:  <unnamed>
+       log:  C:\Users\nikla\OneDrive\Desktop\Dokumente\Research\ZEW\Wind-Project\Replication_Package_Old\Data\log/Output.log
+  log type:  text
+ closed on:  23 Jan 2025, 18:18:59
+-------------------------------------------------------------------------------------------------------------------------------------------------------

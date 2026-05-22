@@ -1,0 +1,21 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Effect of Wind Power Deployment on Employment - GPS Covariate Adjustment \label{employmentresults}}
+\begin{tabular*}{\hsize}{@{\hskip\tabcolsep\extracolsep\fill}l*{7}{c}}
+\toprule
+\multicolumn{8}{l}{\parbox{11cm}{Outcome variable: Employment by sector, normalised per 10.000 capita.}} \\ \multicolumn{8}{l}{\parbox{11cm}{Explanatory variables: Generalised Propensity Score, New revenues from wind power deployment}} \\ \midrule & Business Activities & Public Administration & Wholesale (No vehicles) & Health activities & Transport & Associations and Culture & Mfr. of food \\ \midrule
+\addlinespace \makecell{L.Revenue \\ per capita}&    0.000359         &     -0.0240         &     0.00153         &    -0.00699         &      0.0230         &     -0.0477         &      0.0184         \\
+            &     (0.985)         &     (0.254)         &     (0.936)         &     (0.744)         &     (0.626)         &     (0.130)         &     (0.422)         \\
+\makecell{L(2).Revenue \\ per capita}&     -0.0281         &      0.0310         &    -0.00650         &     0.00935         &      0.0319         &      0.0823         &     -0.0200         \\
+            &     (0.360)         &     (0.228)         &     (0.834)         &     (0.616)         &     (0.439)         &     (0.129)         &     (0.419)         \\
+\makecell{L(3).Revenue \\ per capita}&      0.0128         &      0.0184         &     -0.0116         &    -0.00625         &     -0.0536         &       0.101         &      0.0650\sym{*}  \\
+            &     (0.673)         &     (0.518)         &     (0.719)         &     (0.843)         &     (0.505)         &     (0.178)         &     (0.099)         \\
+GPS         &       71.26         &      -129.7         &      -45.31         &       22.29         &       163.3\sym{*}  &      -157.4         &      -0.471         \\
+            &     (0.478)         &     (0.275)         &     (0.654)         &     (0.753)         &     (0.066)         &     (0.110)         &     (0.997)         \\\addlinespace
+\midrule
+\addlinespace Year FE&         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\addlinespace \midrule \addlinespace Observations&         641         &         641         &         641         &         641         &         641         &         641         &         641         \\
+\bottomrule
+\multicolumn{8}{l}{\footnotesize p-values in parentheses, $^{*}\, p<0.1$, $^{**}\, p<0.05$, $^{***}\, p<0.01$}\\
+\end{tabular*}
+\end{table}
