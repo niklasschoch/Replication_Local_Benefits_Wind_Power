@@ -1,9 +1,7 @@
 # Local Economic Impacts of Wind Power Deployment in Denmark — Replication Package
 
-**Authors:** Claire Gavard, Jonas Göbel & Niklas Schoch
-
-**Title:** Local Economic Impacts of Wind Power Deployment in Denmark, *Environmental and Resource Economics*, Vol. 88, pp. 1679–1717 (2025)
-
+**Authors:** Claire Gavard, Jonas Göbel & Niklas Schoch\
+**Title:** Local Economic Impacts of Wind Power Deployment in Denmark, *Environmental and Resource Economics*, Vol. 88, pp. 1679–1717 (2025)\
 **Original Article:** <https://link.springer.com/article/10.1007/s10640-025-00982-2>
 
 ### Authors
